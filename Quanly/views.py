@@ -81,7 +81,6 @@ def deletecustomer(request,id):
 		return redirect('/')
 	else:
 		get_object_or_404(KhachHang, id = id).delete()
-		messages.error(request,'Customer delete Successfully  ',extra_tags = 'alert alert-success alert-dismissible show')
 		return redirect('Quanly:customer')
 
 		
