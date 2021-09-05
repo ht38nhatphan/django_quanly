@@ -10,6 +10,8 @@ urlpatterns = [
     path('qlnv/', views.staff, name='staff'), 
     path('qlkh/', views.customer, name='customer'), 
     path('addkh/', views.addcustomer, name='addcustomer'), 
+    # path('addod/', views.addOrder, name='addorder'),
+    path('od/', views.order, name='order'),
     # path('savekh/', views.saveCustomer, name='savecustomer'),
    
 ]

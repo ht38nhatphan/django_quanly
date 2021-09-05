@@ -1,7 +1,7 @@
 
 from django.http.response import HttpResponse
 from django.shortcuts  import render, redirect
-from .models import KhachHang, NhanVien
+from .models import Donhang, KhachHang, NhanVien
 from django.contrib.auth import authenticate, login, logout
 from .forms import AddCustomer,UserLogin,UserAddForm
 from django.contrib import messages
@@ -180,3 +180,11 @@ def logout_view(request):
 	# dataset['form'] = form
 	# dataset['title'] = 'register users'
 	# return render(request,'accounts/register.html',dataset)
+
+#  don hang
+
+def order(request):
+    data = { 'donhang1': Donhang.qlTramTron.all() ,
+              'donhang2': Donhang.nvBanhang.all()  }
+    return render(request, 'Order/order.html', data)
+

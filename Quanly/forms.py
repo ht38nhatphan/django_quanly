@@ -4,7 +4,7 @@ from django.db.models import fields
 from django.forms import widgets
 from django.template.defaulttags import widthratio
 from django import forms
-from .models import KhachHang
+from .models import Donhang, KhachHang
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -52,3 +52,10 @@ class UserAddForm(UserCreationForm):
 class UserLogin(forms.Form):
 	username = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'username'}))
 	password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'password'}))
+
+
+# order
+# class AddOrder(forms.ModelForm):
+#     class Meta:
+#          model = Donhang
+#          fields = {'khachHang', 'tramTron', 'mac', 'soKhoi', 'tongGia',  'ngayDo', 'trangThai' }
