@@ -1,8 +1,13 @@
 from django.db import models
 from django.db.models.fields.related import ForeignKey
+<<<<<<< HEAD
 
  
 # Create your models here.
+=======
+#sum
+
+>>>>>>> 8b64d173b7625fceea3f845cacd036049f6bb513
 class KhachHang(models.Model):
      HoTen = models.TextField(max_length=40)
      SoDienThoai = models.CharField(max_length=10)
@@ -86,14 +91,23 @@ class Donhang(models.Model):
     tramTron = models.ForeignKey(TramTron,on_delete= models.CASCADE)
     mac = models.ForeignKey(MacBetong, on_delete= models.CASCADE)
     soKhoi = models.IntegerField()
+<<<<<<< HEAD
     tongGia = models.IntegerField() #soKhoi * MacBetong.Gia
     ngayTao = models.DateTimeField(auto_now_add=True)
     ngayDo = models.DateTimeField()
+=======
+    ngayTao = models.TimeField(auto_now_add=True)
+    ngayDo = models.TimeField()
+>>>>>>> 8b64d173b7625fceea3f845cacd036049f6bb513
     trangThai = models.CharField(max_length=30, choices=TRANG_THAI )
     object = models.Manager()
     nvBanhang = NhanVienQlyDh()
+<<<<<<< HEAD
     qlTramTron = NhanVienQlyTramTron()
 
+=======
+    QLTramTron = NhanVienQlyTramTron()
+>>>>>>> 8b64d173b7625fceea3f845cacd036049f6bb513
 # class QuanLyDonHang (models.Model):
 #     donHang = models.ForeignKey(Donhang, on_delete=models.CASCADE) 
 #     nhanVien = models.ForeignKey(NhanVien)

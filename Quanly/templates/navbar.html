@@ -1,5 +1,7 @@
 {% load auth_extras %}
+
 {% block navbar%}
+
 <!-- <div id="preloader">
     <div class="sk-three-bounce">
         <div class="sk-child sk-bounce1"></div>
@@ -21,10 +23,8 @@
         Nav header start
     ***********************************-->
     <div class="nav-header">
-        <a href="index.html" class="brand-logo">
-            <img class="logo-abbr" src="./images/logo.png" alt="">
-            <img class="logo-compact" src="./images/logo-text.png" alt="">
-            <img class="brand-title" src="./images/logo-text.png" alt="">
+        <a href="{% url 'Quanly:index' %}" class="brand-logo">
+            QUANLYTRAMTRON
         </a>
 
         <div class="nav-control">
@@ -146,20 +146,20 @@
                 <!-- <li><a href="index.html"><i class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
                 </li> -->
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                            class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
+                            class="icon icon-chart-pie-36"></i><span class="nav-text">Dashboard</span></a>
                     <ul aria-expanded="false">
                         <li><a href="/">Dashboard 1</a></li>
                         <li><a href="./index2.html">Dashboard 2</a></li></ul>
                 </li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                    class="icon icon-single-04"></i><span class="nav-text">Don hang</span></a>  
+                    class="icon icon-e-reader"></i><span class="nav-text">Don hang</span></a>  
                     <ul aria-expanded="false">
                         <li><a href="./index.html">Them don hang</a></li>
                         <li><a href="/od">Thong tin don hang</a></li></ul>       
                 </li>
                 {% if request.user.is_superuser or not request.user|has_group:"Quản lý trạm trộn"%}
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                    class="icon icon-single-04"></i><span class="nav-text">Khach hang</span></a>  
+                    class="icon icon-users-mm"></i><span class="nav-text">Khach hang</span></a>  
                     <ul aria-expanded="false">
                         <li><a href="/addkh ">Them khach hang</a></li>
                         <li><a href="/qlkh">Thong tin khach hang</a></li></ul>       
@@ -174,14 +174,14 @@
                 </li>
                 
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                    class="icon icon-single-04"></i><span class="nav-text">Ca lam</span></a>  
+                    class="icon icon-book-open-2"></i><span class="nav-text">Ca lam</span></a>  
                     <ul aria-expanded="false">
                         <li><a href="./index.html">Ca lam viec</a></li>
                         <li><a href="./index2.html">Thong tin nhan vien</a></li></ul>   
                             
                 </li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
-                    class="icon icon-single-04"></i><span class="nav-text">Quan ly xe</span></a>  
+                    class="icon icon-single-04-2"></i><span class="nav-text">Quan ly xe</span></a>  
                     <ul aria-expanded="false">
                         <li><a href="./index.html">Them xe </a></li>
                         <li><a href="./index2.html">Thong tin xe bon</a></li></ul>   
