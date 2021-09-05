@@ -5,9 +5,13 @@
     <div class="container-fluid">
         <div class="row page-titles mx-0">
             <div class="col-lg-12">
+            
                 <div class="card">
+                <section class="col-lg-12 col-md-12 col-sm-12 text-right">
+                <a href="{% url 'Quanly:index' %}"> back </a>
+            </section>
                     <div class="card-header">
-                        <h4 class="card-title">Bordered Table</h4>
+                        <h4 class="card-title">Khach Hang</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -33,10 +37,12 @@
                                         </td>
                                         <td>
                                             <span>
-                                                <a href="javascript:void()" class="mr-4" data-toggle="tooltip"
+                                            {% comment %} {% url 'Quanly:edit' nv.id %}
+                                            {% url 'Quanly:delete' nv.id %} {% endcomment %}
+                                                <a href="{% url 'Quanly:edit_customer' nv.id %}" class="mr-4" data-toggle="tooltip"
                                                     data-placement="top" title="Edit"><i
                                                         class="fa fa-pencil color-muted"></i> </a>
-                                                <a href="javascript:void()" data-toggle="tooltip"
+                                                <a href="{% url 'Quanly:delete_customer' nv.id %}" data-toggle="tooltip"
                                                     data-placement="top" title="Close"><i
                                                         class="fa fa-close color-danger"></i></a>
                                             </span>
