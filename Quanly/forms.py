@@ -5,7 +5,7 @@ from django.forms import widgets
 from django.template.defaulttags import widthratio
 from django import forms
 import datetime
-from .models import Donhang, KhachHang
+from .models import Donhang, KhachHang, NhanVien
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -58,8 +58,8 @@ class UserLogin(forms.Form):
 # order
 
 class AddOrder(forms.ModelForm):
-	ngayDo = forms.DateTimeField(required=True, input_formats=["%Y-%m-%dT%H:%M", ])
-	ngayTao = forms.DateTimeField( required=True, input_formats=["%Y-%m-%dT%H:%M", ])
+	# ngayDo = forms.DateTimeField(required=True, input_formats=["%Y-%m-%dT%H:%M", ])
+	# ngayTao = forms.DateTimeField( required=True, input_formats=["%Y-%m-%dT%H:%M", ])
 	class Meta:
 		model = Donhang	
 		fields = ['khachHang', 'tramTron', 'mac', 'soKhoi','ngayDo' ,'tongGia' , 'trangThai' ]
@@ -67,3 +67,8 @@ class AddOrder(forms.ModelForm):
         # widgets = {
         #     'my_date': DateInput(attrs={'type': 'date'})
         # }
+
+class AddStaff(forms.ModelForm):
+	class Meta:
+		model = NhanVien
+		fields = '__all__'

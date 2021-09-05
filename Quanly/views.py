@@ -4,7 +4,7 @@ from django.shortcuts  import render, redirect,get_list_or_404,get_object_or_404
 from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import DeleteView
-from .forms import AddCustomer,UserLogin,UserAddForm,AddOrder
+from .forms import AddCustomer, AddStaff,UserLogin,UserAddForm,AddOrder
 from django.contrib import messages
 from django.contrib.auth.models import Group,User,UserManager
 import datetime
@@ -171,10 +171,76 @@ def logout_view(request):
 # ---------------------------------nv ------------------------
 def staff(request):
     data = { 'nhanvien': NhanVien.objects.all() }
-    return render(request, 'staff.html', data)
+    return render(request, 'staff/staff.html', data)
+
+def add_staff(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		if request.method == 'POST':
+			form = AddStaff(data = request.POST)
+			if form.is_valid():
+				instance = form.save(commit = False)
+
+				instance.HoTen= request.POST.get('HoTen')
+				idcv = request.POST.get('congViec')
+				cvobj = get_object_or_404(CongViec,id = idcv)
+				instance.congViec = cvobj
+				instance.SoDienThoai = request.POST.get('SoDienThoai')
+				instance.DiaChi = request.POST.get('DiaChi')
+				instance.SoCMT = request.POST.get('SoCMT')
+				instance.save()
 
 
+				messages.success(request,'Staff Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
+				return redirect('Quanly:addstaff')
+			else:
+				messages.error(request,'Error Creating Staff ',extra_tags = 'alert alert-warning alert-dismissible show')
+				return redirect('Quanly:addstaff')
 
+		dataset = dict()
+		form = AddStaff()
+		dataset['form'] = form
+		dataset['title'] = 'create Staff'
+		return render(request,'staff/addStaff.html',dataset)
+def edit_staff(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	
+	else:
+		staff = get_object_or_404(NhanVien,id=id)
+		if request.method == 'POST':
+			form = AddStaff(data = request.POST,instance = staff)
+			if form.is_valid():
+				instance = form.save(commit = False)
+
+				instance.HoTen= request.POST.get('HoTen')
+				idcv = request.POST.get('congViec')
+				cvobj = get_object_or_404(CongViec,id = idcv)
+				instance.congViec = cvobj
+				instance.SoDienThoai = request.POST.get('SoDienThoai')
+				instance.DiaChi = request.POST.get('DiaChi')
+				instance.SoCMT = request.POST.get('SoCMT')
+				instance.save()
+
+
+				messages.success(request,'Staff Successfully ',extra_tags = 'alert alert-success alert-dismissible show')
+				return redirect('Quanly:addstaff')
+			else:
+				messages.error(request,'Error Staff ',extra_tags = 'alert alert-warning alert-dismissible show')
+				return redirect('Quanly:addstaff')
+
+		dataset = dict()
+		form = AddStaff(request.POST or None,instance = staff)
+		dataset['form'] = form
+		dataset['title'] = 'edit Staff'
+		return render(request,'staff/addStaff.html',dataset)	
+def delete_staff(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		get_object_or_404(NhanVien, id = id).delete()
+		return redirect('Quanly:staff')
 
 # if request.method == 'POST':
 #         form = AddCustomer(data = request.POST or None)
