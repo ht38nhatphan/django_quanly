@@ -9,6 +9,7 @@ class KhachHang(models.Model):
      SoCMT = models.TextField(max_length=20)
      def __str__(self):
         return self.HoTen + ' ' + self.SoDienThoai
+
 class VatLieu(models.Model):
     TenVatLieu = models.TextField(max_length=50)
     DonVi = models.TextField(max_length=10)
@@ -27,6 +28,10 @@ class ChiTietBeTong(models.Model):
     Mac = models.ForeignKey(MacBetong, on_delete= models.CASCADE)
     vatlieu = models.ForeignKey(VatLieu, on_delete=models.CASCADE)
     KhoiLuong = models.IntegerField()
+
+    class Meta:
+        unique_together = [['Mac', 'vatlieu']]
+
 
 class CongViec(models.Model):
     TenCongViec = models.TextField(max_length=50)
@@ -64,7 +69,7 @@ class TramTron(models.Model):
 # phan quyen nhan vien tram tron
 class NhanVienQlyTramTron(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(trangThai = 'xl') and super().get_queryset().filter(trangThai = 'dgh')
+        return super().get_queryset().filter(trangThai = 'xl') or super().get_queryset().filter(trangThai = 'dgh')
 
 class NhanVienQlyDh(models.Manager):
     def get_queryset(self):
@@ -80,9 +85,11 @@ class Donhang(models.Model):
     tramTron = models.ForeignKey(TramTron,on_delete= models.CASCADE)
     mac = models.ForeignKey(MacBetong, on_delete= models.CASCADE)
     soKhoi = models.IntegerField()
-    ngayTao = models.TimeField(auto_now_add=True)
-    ngayDo = models.TimeField()
+    # tongGia = models.IntegerField() #soKhoi * MacBetong.Gia
+    ngayTao = models.DateTimeField(auto_now_add=True)
+    ngayDo = models.DateTimeField()
     trangThai = models.CharField(max_length=30, choices=TRANG_THAI )
+    object = models.Manager()
     nvBanhang = NhanVienQlyDh()
     QLTramTron = NhanVienQlyTramTron()
 # class QuanLyDonHang (models.Model):
