@@ -1,25 +1,24 @@
 
 from django.http.response import HttpResponse
-from django.shortcuts  import render, redirect
+from django.shortcuts  import render, redirect,get_list_or_404,get_object_or_404
 from .models import KhachHang, NhanVien
 from django.contrib.auth import authenticate, login, logout
+from django.views.generic import DeleteView
 from .forms import AddCustomer,UserLogin,UserAddForm
 from django.contrib import messages
 from django.contrib.auth.models import Group,User,UserManager
 # Create your views here.
+#------------------------------------MAIN---------------------------
 def index(request):
     if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
         return redirect('/')
 
     return render(request, 'index.html')
 
+#---------------------------------------CUSTOMER-----------------------
 def customer(request):
     data = { 'khachhang': KhachHang.objects.all() }
     return render(request, 'customer.html', data)
-
-def staff(request):
-    data = { 'nhanvien': NhanVien.objects.all() }
-    return render(request, 'staff.html', data)
 
 def addcustomer(request):
     if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
@@ -38,11 +37,11 @@ def addcustomer(request):
                 instance.save()
 
 
-                messages.success(request,'Emergency Successfully Created for ',extra_tags = 'alert alert-success alert-dismissible show')
+                messages.success(request,'customer Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
                 return redirect('Quanly:addcustomer')
 
             else:
-                messages.error(request,'Error Creating Emergency for ',extra_tags = 'alert alert-warning alert-dismissible show')
+                messages.error(request,'Error Creating Customer ',extra_tags = 'alert alert-warning alert-dismissible show')
                 return redirect('Quanly:addcustomer')
 
         dataset = dict()
@@ -51,6 +50,44 @@ def addcustomer(request):
         dataset['title'] = 'create customer'
         return render(request,'addCustomer.html',dataset)
 
+def editcustomer(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	customer = get_object_or_404(KhachHang, id = id)
+	if request.method == 'POST':
+		form = AddCustomer(data = request.POST,instance = customer)
+		if form.is_valid():
+			instance = form.save(commit = False)
+			instance.HoTen= request.POST.get('HoTen')
+			instance.SoDienThoai = request.POST.get('SoDienThoai')
+			instance.DiaChi = request.POST.get('DiaChi')
+			instance.SoCMT = request.POST.get('SoCMT')
+			instance.save()
+			
+			messages.success(request,'Customer Successfully  ',extra_tags = 'alert alert-success alert-dismissible show')
+			return redirect('Quanly:addcustomer')
+		else:
+			messages.error(request,'Error Creating Customer ',extra_tags = 'alert alert-warning alert-dismissible show')
+			return redirect('Quanly:addcustomer')
+		
+	dataset = dict()
+	form = AddCustomer(request.POST or None,instance = customer)
+	dataset['form'] = form
+	dataset['title'] = 'EDIT CUSTOMER'
+	return render(request,'addCustomer.html',dataset)
+
+def deletecustomer(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		get_object_or_404(KhachHang, id = id).delete()
+		return redirect('Quanly:customer')
+
+		
+
+
+
+#------------------------------------------------account-----------------------------------------
 
 # login
 def login_view(request):
@@ -89,8 +126,10 @@ def logout_view(request):
 	return redirect('Quanly:login')
 
 
-
-
+# ---------------------------------nv ------------------------
+def staff(request):
+    data = { 'nhanvien': NhanVien.objects.all() }
+    return render(request, 'staff.html', data)
 
 
 
