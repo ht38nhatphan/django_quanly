@@ -1,17 +1,7 @@
 from django.db import models
 from django.db.models.fields.related import ForeignKey
 #sum
-from django.db.models import F
 
-class AnnotationManager(models.Manager):
-
-    def __init__(self, **kwargs):
-        super().__init__()
-        self.annotations = kwargs
-
-    def get_queryset(self):
-        return super().get_queryset().annotate(**self.annotations)
-# Create your models here.
 class KhachHang(models.Model):
      HoTen = models.TextField(max_length=40)
      SoDienThoai = models.CharField(max_length=10)
@@ -90,16 +80,11 @@ class Donhang(models.Model):
     tramTron = models.ForeignKey(TramTron,on_delete= models.CASCADE)
     mac = models.ForeignKey(MacBetong, on_delete= models.CASCADE)
     soKhoi = models.IntegerField()
-    _tongGia = None #soKhoi * MacBetong.Gia
     ngayTao = models.TimeField(auto_now_add=True)
     ngayDo = models.TimeField()
     trangThai = models.CharField(max_length=30, choices=TRANG_THAI )
     nvBanhang = NhanVienQlyDh()
     QLTramTron = NhanVienQlyTramTron()
-    objects = AnnotationManager(
-        tongGia = F('soKhoi') * F('soKhoi')
-    )
-
 # class QuanLyDonHang (models.Model):
 #     donHang = models.ForeignKey(Donhang, on_delete=models.CASCADE) 
 #     nhanVien = models.ForeignKey(NhanVien)
