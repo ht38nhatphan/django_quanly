@@ -25,7 +25,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                              {% if request.user|has_group:"Quản lý trạm trộn"%}
+                              {% if request.user.is_superuser or request.user|has_group:"Quản lý trạm trộn"%}
                                     {% for dh in donhang1 %}
                                     <tr>
                                         <td>{{dh.khachHang}}</td>
