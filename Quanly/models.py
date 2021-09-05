@@ -85,7 +85,7 @@ class Donhang(models.Model):
     tramTron = models.ForeignKey(TramTron,on_delete= models.CASCADE)
     mac = models.ForeignKey(MacBetong, on_delete= models.CASCADE)
     soKhoi = models.IntegerField()
-    # tongGia = models.IntegerField() #soKhoi * MacBetong.Gia
+    tongGia = models.IntegerField() #soKhoi * MacBetong.Gia
     ngayTao = models.DateTimeField(auto_now_add=True)
     ngayDo = models.DateTimeField()
     trangThai = models.CharField(max_length=30, choices=TRANG_THAI )

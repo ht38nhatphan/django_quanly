@@ -1,12 +1,13 @@
 
 from django.http.response import HttpResponse
 from django.shortcuts  import render, redirect,get_list_or_404,get_object_or_404
-from .models import Donhang, KhachHang, NhanVien
+from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import DeleteView
-from .forms import AddCustomer,UserLogin,UserAddForm
+from .forms import AddCustomer,UserLogin,UserAddForm,AddOrder
 from django.contrib import messages
 from django.contrib.auth.models import Group,User,UserManager
+import datetime
 # Create your views here.
 #------------------------------------MAIN---------------------------
 def index(request):
@@ -86,7 +87,48 @@ def deletecustomer(request,id):
 		
 
 
+#------------------------------------------------ORDER-----------------------------------------
+def order(request):
+    data = { 'donhang1': Donhang.QLTramTron.all() ,
+              'donhang2': Donhang.nvBanhang.all()  }
+    return render(request, 'Order/order.html', data)
+def add_oder(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		if request.method == 'POST':
+			form = AddOrder(data = request.POST or None)
+			if form.is_valid():
+				instance = form.save(commit = False)
+				idcustomer = request.POST.get('khachHang')
+				idtram = request.POST.get('tramTron')
+				idmac = request.POST.get('mac')
+				tramobj = get_object_or_404(TramTron,id = idtram)
+				cusobj = get_object_or_404(KhachHang,id = idcustomer)
+				macobj = get_object_or_404(MacBetong,id = idmac)
+				instance.khachHang = cusobj
+				instance.tramTron = tramobj
+				instance.mac = macobj
+				instance.soKhoi = request.POST.get('soKhoi')
+				instance.tongGia = request.POST.get('tongGia')
+				
+				# instance.ngayTao = request.POST.get('ngayTao')
+				# instance.ngayDo = request.POST.get('ngayDo')
+				
+				instance.trangThai = request.POST.get('trangThai')
+				instance.save()
+				messages.success(request,'order Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
+				return redirect('Quanly:add_order')
 
+			else:
+				messages.error(request,'Error Creating Customer ',extra_tags = 'alert alert-warning alert-dismissible show')
+				return redirect('Quanly:add_order')
+
+		dataset = dict()
+		form = AddOrder()
+		dataset['form'] = form
+		dataset['title'] = 'TAO DON HANG'
+		return render(request,'Order/addOrder.html',dataset)
 #------------------------------------------------account-----------------------------------------
 
 # login
@@ -221,9 +263,4 @@ def staff(request):
 	# return render(request,'accounts/register.html',dataset)
 
 #  don hang
-
-def order(request):
-    data = { 'donhang1': Donhang.QLTramTron.all() ,
-              'donhang2': Donhang.nvBanhang.all()  }
-    return render(request, 'Order/order.html', data)
 
