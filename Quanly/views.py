@@ -1,7 +1,12 @@
 
 from django.http.response import HttpResponse
+<<<<<<< HEAD
+from django.shortcuts  import render, redirect
+from .models import Donhang, KhachHang, NhanVien
+=======
 from django.shortcuts  import render, redirect,get_list_or_404,get_object_or_404
 from .models import KhachHang, NhanVien
+>>>>>>> 8b64d173b7625fceea3f845cacd036049f6bb513
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import DeleteView
 from .forms import AddCustomer,UserLogin,UserAddForm
@@ -219,3 +224,11 @@ def staff(request):
 	# dataset['form'] = form
 	# dataset['title'] = 'register users'
 	# return render(request,'accounts/register.html',dataset)
+
+#  don hang
+
+def order(request):
+    data = { 'donhang1': Donhang.qlTramTron.all() ,
+              'donhang2': Donhang.nvBanhang.all()  }
+    return render(request, 'Order/order.html', data)
+
