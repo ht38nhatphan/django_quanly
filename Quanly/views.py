@@ -19,8 +19,10 @@ def index(request):
 
 #---------------------------------------CUSTOMER-----------------------
 def customer(request):
-    data = { 'khachhang': KhachHang.objects.all() }
-    return render(request, 'customer.html', data)
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	data = { 'khachhang': KhachHang.objects.all() }
+	return render(request, 'customer.html', data)
 
 def addcustomer(request):
     if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
@@ -90,9 +92,11 @@ def deletecustomer(request,id):
 
 #------------------------------------------------ORDER-----------------------------------------
 def order(request):
-    data = { 'donhang1': Donhang.QLTramTron.all() ,
-              'donhang2': Donhang.nvBanhang.all()  }
-    return render(request, 'Order/order.html', data)
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	data = { 'donhang1': Donhang.QLTramTron.all() ,
+			'donhang2': Donhang.nvBanhang.all()  }
+	return render(request, 'Order/order.html', data)
 def delete_order(request,id):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')
@@ -184,8 +188,10 @@ def logout_view(request):
 
 # ---------------------------------nv ------------------------
 def staff(request):
-    data = { 'nhanvien': NhanVien.objects.all() }
-    return render(request, 'staff/staff.html', data)
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	data = { 'nhanvien': NhanVien.objects.all() }
+	return render(request, 'staff/staff.html', data)
 
 def add_staff(request):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
