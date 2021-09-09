@@ -93,6 +93,12 @@ def order(request):
     data = { 'donhang1': Donhang.QLTramTron.all() ,
               'donhang2': Donhang.nvBanhang.all()  }
     return render(request, 'Order/order.html', data)
+def delete_order(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		get_object_or_404(Donhang, id = id).delete()
+		return redirect('Quanly:order')
 def add_oder(request):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')

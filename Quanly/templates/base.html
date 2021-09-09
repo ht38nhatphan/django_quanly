@@ -86,7 +86,11 @@
     <script src="{% static 'js/custom.min.js' %}"></script>
 
 
-
+    <script>
+    $(document).on('click', '.fa', function(){
+    return confirm('Are you sure you want to delete this?');
+})
+    </script>
 
 </body>
 
