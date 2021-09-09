@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models.fields.related import ForeignKey
+from django.core.validators import MinValueValidator
 #sum
 
 class KhachHang(models.Model):
@@ -18,8 +19,8 @@ class VatLieu(models.Model):
 
 class MacBetong(models.Model):
     TenMac = models.TextField(max_length=30)
-    DoSut = models.TextField(max_length=20)
-    Gia = models.BigIntegerField()
+    DoSut = models.PositiveIntegerField(default=0,validators=[MinValueValidator(0)])
+    Gia = models.PositiveBigIntegerField(validators=[MinValueValidator(0)])
     vatLieu = models.ManyToManyField(VatLieu, through='ChiTietBeTong')
     def __str__(self):
         return self.TenMac
@@ -27,7 +28,7 @@ class MacBetong(models.Model):
 class ChiTietBeTong(models.Model):
     Mac = models.ForeignKey(MacBetong, on_delete= models.CASCADE)
     vatlieu = models.ForeignKey(VatLieu, on_delete=models.CASCADE)
-    KhoiLuong = models.IntegerField()
+    KhoiLuong = models.PositiveIntegerField(validators=[MinValueValidator(0)])
 
     class Meta:
         unique_together = [['Mac', 'vatlieu']]
@@ -85,8 +86,8 @@ class Donhang(models.Model):
     khachHang = models.ForeignKey(KhachHang, on_delete= models.CASCADE)
     tramTron = models.ForeignKey(TramTron,on_delete= models.CASCADE)
     mac = models.ForeignKey(MacBetong, on_delete= models.CASCADE)
-    soKhoi = models.IntegerField()
-    tongGia = models.IntegerField(default=0) #soKhoi * MacBetong.Gia
+    soKhoi = models.PositiveIntegerField(validators=[MinValueValidator(0)])
+    tongGia = models.PositiveIntegerField(default=0,validators=[MinValueValidator(0)]) #soKhoi * MacBetong.Gia
     ngayTao = models.DateTimeField(auto_now_add=True)
     ngayDo = models.DateTimeField()
     trangThai = models.CharField(max_length=30, choices=TRANG_THAI )
