@@ -75,6 +75,7 @@ class NhanVienQlyDh(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(trangThai = 'cxl') 
 
+
 class Donhang(models.Model):
     TRANG_THAI = (
         ('cxl', 'Chua xu li'),
@@ -85,7 +86,7 @@ class Donhang(models.Model):
     tramTron = models.ForeignKey(TramTron,on_delete= models.CASCADE)
     mac = models.ForeignKey(MacBetong, on_delete= models.CASCADE)
     soKhoi = models.IntegerField()
-    tongGia = models.IntegerField() #soKhoi * MacBetong.Gia
+    tongGia = models.IntegerField(default=0) #soKhoi * MacBetong.Gia
     ngayTao = models.DateTimeField(auto_now_add=True)
     ngayDo = models.DateTimeField()
     trangThai = models.CharField(max_length=30, choices=TRANG_THAI )

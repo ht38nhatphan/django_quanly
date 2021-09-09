@@ -62,7 +62,10 @@ class AddOrder(forms.ModelForm):
 	# ngayTao = forms.DateTimeField( required=True, input_formats=["%Y-%m-%dT%H:%M", ])
 	class Meta:
 		model = Donhang	
-		fields = ['khachHang', 'tramTron', 'mac', 'soKhoi','ngayDo' ,'tongGia' , 'trangThai' ]
+		fields = '__all__'
+		widgets = {
+        'ngayDo': forms.DateInput(format=('%d-%m-%Y'), attrs={'firstDay': 1, 'pattern=': '\d{4}-\d{2}-\d{2}', 'lang': 'pl', 'format': 'yyyy-mm-dd', 'type': 'date'}),
+    	}
 		# fields = '__all__'
         # widgets = {
         #     'my_date': DateInput(attrs={'type': 'date'})

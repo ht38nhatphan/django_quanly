@@ -1,5 +1,6 @@
 
 from django.http.response import HttpResponse
+from django.contrib.auth.models import Group 
 from django.shortcuts  import render, redirect,get_list_or_404,get_object_or_404
 from .models import *
 from django.contrib.auth import authenticate, login, logout
@@ -116,7 +117,14 @@ def add_oder(request):
 				# instance.ngayDo = request.POST.get('ngayDo')
 				
 				instance.trangThai = request.POST.get('trangThai')
-				instance.save()
+				#check status in tt 
+				group = Group.objects.get(name = "Quản lý trạm trộn")
+				check = True if group in request.user.groups.all() else False
+				if request.POST.get('trangThai') == 'xl' and not check:
+					messages.error(request,'Error Creating Customer ',extra_tags = 'alert alert-warning alert-dismissible show')
+					return redirect('Quanly:add_order')
+				else:
+					instance.save()
 				messages.success(request,'order Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
 				return redirect('Quanly:add_order')
 
