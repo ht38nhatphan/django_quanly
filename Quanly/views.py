@@ -1,12 +1,14 @@
 
 from django.http.response import HttpResponse
+from django.contrib.auth.models import Group 
 from django.shortcuts  import render, redirect,get_list_or_404,get_object_or_404
-from .models import Donhang, KhachHang, NhanVien
+from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import DeleteView
-from .forms import AddCustomer,UserLogin,UserAddForm
+from .forms import AddCustomer, AddStaff,UserLogin,UserAddForm,AddOrder
 from django.contrib import messages
 from django.contrib.auth.models import Group,User,UserManager
+import datetime
 # Create your views here.
 #------------------------------------MAIN---------------------------
 def index(request):
@@ -86,7 +88,55 @@ def deletecustomer(request,id):
 		
 
 
+#------------------------------------------------ORDER-----------------------------------------
+def order(request):
+    data = { 'donhang1': Donhang.QLTramTron.all() ,
+              'donhang2': Donhang.nvBanhang.all()  }
+    return render(request, 'Order/order.html', data)
+def add_oder(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		if request.method == 'POST':
+			form = AddOrder(data = request.POST or None)
+			if form.is_valid():
+				instance = form.save(commit = False)
+				idcustomer = request.POST.get('khachHang')
+				idtram = request.POST.get('tramTron')
+				idmac = request.POST.get('mac')
+				tramobj = get_object_or_404(TramTron,id = idtram)
+				cusobj = get_object_or_404(KhachHang,id = idcustomer)
+				macobj = get_object_or_404(MacBetong,id = idmac)
+				instance.khachHang = cusobj
+				instance.tramTron = tramobj
+				instance.mac = macobj
+				instance.soKhoi = request.POST.get('soKhoi')
+				instance.tongGia = request.POST.get('tongGia')
+				
+				# instance.ngayTao = request.POST.get('ngayTao')
+				# instance.ngayDo = request.POST.get('ngayDo')
+				
+				instance.trangThai = request.POST.get('trangThai')
+				#check status in tt 
+				group = Group.objects.get(name = "Quản lý trạm trộn")
+				check = True if group in request.user.groups.all() else False
+				if request.POST.get('trangThai') == 'xl' and not check:
+					messages.error(request,'Error Creating Customer ',extra_tags = 'alert alert-warning alert-dismissible show')
+					return redirect('Quanly:add_order')
+				else:
+					instance.save()
+				messages.success(request,'order Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
+				return redirect('Quanly:add_order')
 
+			else:
+				messages.error(request,'Error Creating Customer ',extra_tags = 'alert alert-warning alert-dismissible show')
+				return redirect('Quanly:add_order')
+
+		dataset = dict()
+		form = AddOrder()
+		dataset['form'] = form
+		dataset['title'] = 'TAO DON HANG'
+		return render(request,'Order/addOrder.html',dataset)
 #------------------------------------------------account-----------------------------------------
 
 # login
@@ -129,10 +179,76 @@ def logout_view(request):
 # ---------------------------------nv ------------------------
 def staff(request):
     data = { 'nhanvien': NhanVien.objects.all() }
-    return render(request, 'staff.html', data)
+    return render(request, 'staff/staff.html', data)
+
+def add_staff(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		if request.method == 'POST':
+			form = AddStaff(data = request.POST)
+			if form.is_valid():
+				instance = form.save(commit = False)
+
+				instance.HoTen= request.POST.get('HoTen')
+				idcv = request.POST.get('congViec')
+				cvobj = get_object_or_404(CongViec,id = idcv)
+				instance.congViec = cvobj
+				instance.SoDienThoai = request.POST.get('SoDienThoai')
+				instance.DiaChi = request.POST.get('DiaChi')
+				instance.SoCMT = request.POST.get('SoCMT')
+				instance.save()
 
 
+				messages.success(request,'Staff Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
+				return redirect('Quanly:addstaff')
+			else:
+				messages.error(request,'Error Creating Staff ',extra_tags = 'alert alert-warning alert-dismissible show')
+				return redirect('Quanly:addstaff')
 
+		dataset = dict()
+		form = AddStaff()
+		dataset['form'] = form
+		dataset['title'] = 'create Staff'
+		return render(request,'staff/addStaff.html',dataset)
+def edit_staff(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	
+	else:
+		staff = get_object_or_404(NhanVien,id=id)
+		if request.method == 'POST':
+			form = AddStaff(data = request.POST,instance = staff)
+			if form.is_valid():
+				instance = form.save(commit = False)
+
+				instance.HoTen= request.POST.get('HoTen')
+				idcv = request.POST.get('congViec')
+				cvobj = get_object_or_404(CongViec,id = idcv)
+				instance.congViec = cvobj
+				instance.SoDienThoai = request.POST.get('SoDienThoai')
+				instance.DiaChi = request.POST.get('DiaChi')
+				instance.SoCMT = request.POST.get('SoCMT')
+				instance.save()
+
+
+				messages.success(request,'Staff Successfully ',extra_tags = 'alert alert-success alert-dismissible show')
+				return redirect('Quanly:addstaff')
+			else:
+				messages.error(request,'Error Staff ',extra_tags = 'alert alert-warning alert-dismissible show')
+				return redirect('Quanly:addstaff')
+
+		dataset = dict()
+		form = AddStaff(request.POST or None,instance = staff)
+		dataset['form'] = form
+		dataset['title'] = 'edit Staff'
+		return render(request,'staff/addStaff.html',dataset)	
+def delete_staff(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		get_object_or_404(NhanVien, id = id).delete()
+		return redirect('Quanly:staff')
 
 # if request.method == 'POST':
 #         form = AddCustomer(data = request.POST or None)
@@ -221,9 +337,4 @@ def staff(request):
 	# return render(request,'accounts/register.html',dataset)
 
 #  don hang
-
-def order(request):
-    data = { 'donhang1': Donhang.QLTramTron.all() ,
-              'donhang2': Donhang.nvBanhang.all()  }
-    return render(request, 'Order/order.html', data)
 
