@@ -26,6 +26,7 @@ class MacBetong(models.Model):
     def __str__(self):
         return self.TenMac
 
+
 class ChiTietBeTong(models.Model):
     Mac = models.ForeignKey(MacBetong, on_delete= models.CASCADE)
     vatlieu = models.ForeignKey(VatLieu, on_delete=models.CASCADE)
