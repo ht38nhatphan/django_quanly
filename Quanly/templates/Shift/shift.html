@@ -1,0 +1,63 @@
+
+{% extends 'base.html' %}
+{% load auth_extras %}
+{% block content %}
+<div class="content-body btn-page">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Bordered Table</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered verticle-middle table-responsive-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ca lam</th>
+                                        <th scope="col">So gio</th>
+                                        <th scope="col">Nhan vien </th>                   
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                              {% if request.user.is_superuser or request.user|has_group:"Quản lý trạm trộn"%}
+                                    {% for ca in Ca %}
+                                    <tr>
+                                        <td>{{ca.caLam}}</td>
+                                        <td>
+                                           {{ca.soGio}}
+                                        </td>
+                                        <td>{{ ca.get_epl_values }}</td>
+                                      
+                                        <td>
+                                            <span>
+                                                <a href="javascript:void()" class="mr-4" data-toggle="tooltip"
+                                                    data-placement="top" title="Edit"><i
+                                                        class="fa fa-pencil color-muted"></i> </a>
+                                                <a href="javascript:void()" data-toggle="tooltip"
+                                                    data-placement="top" title="Close"><i
+                                                        class="fa fa-close color-danger"></i></a>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {% endfor%}
+                                    
+
+                                {% endif %}
+
+                               
+                               
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}
