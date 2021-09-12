@@ -9,6 +9,8 @@ from .forms import AddCustomer, AddStaff,UserLogin,UserAddForm,AddOrder
 from django.contrib import messages
 from django.contrib.auth.models import Group,User,UserManager
 import datetime
+from django.db.models import F
+from django.db import connection
 # Create your views here.
 #------------------------------------MAIN---------------------------
 def index(request):
@@ -89,13 +91,19 @@ def deletecustomer(request,id):
 
 		
 
-
+# SELECT soKhoi,B.Gia, soKhoi * B.Gia as tong ,tongGia, ngayTao, ngayDo, trangThai, khachHang_id, mac_id, tramTron_id
+# FROM Quanly_donhang A join Quanly_macbetong B on A.mac_id = B.id WHERE trangThai = 'xl';
 #------------------------------------------------ORDER-----------------------------------------
 def order(request):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')
-	data = { 'donhang1': Donhang.QLTramTron.all() ,
-			'donhang2': Donhang.nvBanhang.all()  }
+	query = "SELECT A.id, C.HoTen as tkh, B.TenMac, soKhoi,B.Gia, soKhoi * B.Gia as tong , ngayTao, ngayDo, trangThai FROM Quanly_donhang A join Quanly_macbetong B on A.mac_id = B.id  JOIN Quanly_khachhang C on A.khachHang_id = C.id join Quanly_tramtron E on A.tramTron_id = E.id WHERE trangThai = 'cxl';"
+	query1 = "SELECT A.id, C.HoTen as tkh, B.TenMac, soKhoi,B.Gia, soKhoi * B.Gia as tong , ngayTao, ngayDo, trangThai FROM Quanly_donhang A join Quanly_macbetong B on A.mac_id = B.id  JOIN Quanly_khachhang C on A.khachHang_id = C.id join Quanly_tramtron E on A.tramTron_id = E.id WHERE trangThai = 'xl' or trangThai='dgh' ;"
+	data = {'donhang': Donhang.object.raw(query),
+		'donhang1': Donhang.object.raw(query),
+	}
+	# data = { 'donhang1': Donhang.QLTramTron.all(), 
+	# 		'donhang2': Donhang.nvBanhang.all()  }
 	return render(request, 'Order/order.html', data)
 def delete_order(request,id):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
@@ -348,5 +356,19 @@ def delete_staff(request,id):
 	# dataset['title'] = 'register users'
 	# return render(request,'accounts/register.html',dataset)
 
-#  don hang
+#  Quan ly xe
 
+def Car(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	data = { 'Xe': XeBon.objects.all() }
+	return render(request, 'Car/car.html', data)
+
+
+# Quan ly ca truc
+
+def Shift(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	data = { 'Ca': CaLamviec.objects.all() }
+	return render(request, 'Shift/shift.html', data)

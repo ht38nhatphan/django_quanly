@@ -1,3 +1,4 @@
+
 from django.db import models
 from django.db.models.fields.related import ForeignKey
 from django.core.validators import MinValueValidator
@@ -24,6 +25,7 @@ class MacBetong(models.Model):
     vatLieu = models.ManyToManyField(VatLieu, through='ChiTietBeTong')
     def __str__(self):
         return self.TenMac
+
 
 class ChiTietBeTong(models.Model):
     Mac = models.ForeignKey(MacBetong, on_delete= models.CASCADE)
@@ -61,6 +63,14 @@ class CaLamviec(models.Model):
     nhanvien = models.ManyToManyField(NhanVien)
     soGio = models.IntegerField()
     caLam = models.CharField(max_length=5, choices=CA_LAM )
+    def get_epl_values(self):
+        ret = ''
+        print(self.nhanvien.all())
+        # use models.ManyToMany field's all() method to return all the Department objects that this employee belongs to.
+        for dept in self.nhanvien.all():
+            ret = ret + dept.HoTen + ', '
+        # remove the last ',' and return the value.
+        return ret[:-2]
 
 class TramTron(models.Model):
     tenTramTron = models.CharField(max_length=30)
