@@ -20,6 +20,7 @@ urlpatterns = [
     path('qlkh/delete_order/<int:id>/', views.delete_order, name='delete_order'),
     path('Car/',views.Car,name='Car'),
      path('Shift/',views.Shift,name='Shift'),
+     path('addshift/', views.Add_shift, name='addshift'), 
 #     path('savekh/', views.saveCustomer, name='savecustomer'),
 #    order
     

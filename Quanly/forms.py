@@ -5,7 +5,7 @@ from django.forms import widgets
 from django.template.defaulttags import widthratio
 from django import forms
 import datetime
-from .models import Donhang, KhachHang, NhanVien
+from .models import CaLamviec, Donhang, KhachHang, NhanVien
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 
@@ -74,4 +74,10 @@ class AddOrder(forms.ModelForm):
 class AddStaff(forms.ModelForm):
 	class Meta:
 		model = NhanVien
+		fields = '__all__'
+
+
+class AddShift(forms.ModelForm):
+	class Meta:
+		model = CaLamviec
 		fields = '__all__'

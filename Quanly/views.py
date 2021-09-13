@@ -5,7 +5,7 @@ from django.shortcuts  import render, redirect,get_list_or_404,get_object_or_404
 from .models import *
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import DeleteView
-from .forms import AddCustomer, AddStaff,UserLogin,UserAddForm,AddOrder
+from .forms import AddCustomer, AddShift, AddStaff,UserLogin,UserAddForm,AddOrder
 from django.contrib import messages
 from django.contrib.auth.models import Group,User,UserManager
 import datetime
@@ -372,3 +372,32 @@ def Shift(request):
 		return redirect('/')
 	data = { 'Ca': CaLamviec.objects.all() }
 	return render(request, 'Shift/shift.html', data)
+
+def Add_shift(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		if request.method == 'POST':
+			form = AddShift(data = request.POST)
+			if form.is_valid():
+				instance = form.save(commit = False)
+
+				instance.caLam= request.POST.get('caLam')
+				idnv = request.POST.get('nhanvien')
+				nvobj = get_object_or_404(CongViec,id = idnv)
+				instance.nhanvien = nvobj
+				instance.soGio = request.POST.get('soGio')
+				instance.save()
+
+
+				messages.success(request,'Shift Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
+				return redirect('Quanly:addshift')
+			else:
+				messages.error(request,'Error Creating Shift ',extra_tags = 'alert alert-warning alert-dismissible show')
+				return redirect('Quanly:addshift')
+
+		dataset = dict()
+		form = AddShift()
+		dataset['form'] = form
+		dataset['title'] = 'create Shift'
+		return render(request,'Shift/addShift.html',dataset)
