@@ -8,7 +8,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Bordered Table</h4>
+                        <h4 class="card-title">{{title}}</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -33,10 +33,10 @@
                                       
                                         <td>
                                             <span>
-                                                <a href="javascript:void()" class="mr-4" data-toggle="tooltip"
+                                                <a href="{% url 'Quanly:edit_shift' ca.id %}" class="mr-4" data-toggle="tooltip"
                                                     data-placement="top" title="Edit"><i
                                                         class="fa fa-pencil color-muted"></i> </a>
-                                                <a href="javascript:void()" data-toggle="tooltip"
+                                                <a href="{% url 'Quanly:delete_shift' ca.id %}" data-toggle="tooltip"
                                                     data-placement="top" title="Close"><i
                                                         class="fa fa-close color-danger"></i></a>
                                             </span>
