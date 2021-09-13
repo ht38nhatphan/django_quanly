@@ -20,13 +20,8 @@ class VatLieu(models.Model):
 
 class MacBetong(models.Model):
     TenMac = models.TextField(max_length=30)
-<<<<<<< HEAD
     DoSut = models.PositiveIntegerField(default=0, validators= [MinValueValidator(0)])
     Gia = models.PositiveBigIntegerField(validators= [MinValueValidator(0)])
-=======
-    DoSut = models.PositiveIntegerField(default=0,validators= [MinValueValidator(0)])
-    Gia = models.PositiveBigIntegerField(validators=[MinValueValidator(0)])
->>>>>>> 8282a0112cbb1cf70fb80f5d05a6adf4bf44e0f4
     vatLieu = models.ManyToManyField(VatLieu, through='ChiTietBeTong')
     def __str__(self):
         return self.TenMac
