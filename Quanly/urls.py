@@ -21,6 +21,7 @@ urlpatterns = [
     path('Car/',views.Car,name='Car'),
      path('Shift/',views.Shift,name='Shift'),
      path('addshift/', views.Add_shift, name='addshift'), 
+    path('daskboard/', views.Daskboard, name = 'dask'),
 #     path('savekh/', views.saveCustomer, name='savecustomer'),
 #    order
     

@@ -380,15 +380,14 @@ def Add_shift(request):
 		if request.method == 'POST':
 			form = AddShift(data = request.POST)
 			if form.is_valid():
-				instance = form.save(commit = False)
-
-				instance.caLam= request.POST.get('caLam')
-				idnv = request.POST.get('nhanvien')
-				nvobj = get_object_or_404(CongViec,id = idnv)
-				instance.nhanvien = nvobj
-				instance.soGio = request.POST.get('soGio')
-				instance.save()
-
+				# instance = form.save(commit = False)
+				# instance.caLam= request.POST.get('caLam')
+				# idnv = request.POST.get('nhanvien')
+				# nvobj = get_object_or_404(NhanVien,id = idnv)
+				# instance.nhanvien = nvobj
+				# instance.soGio = request.POST.get('soGio')
+				# instance.save()
+				form.save()
 
 				messages.success(request,'Shift Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
 				return redirect('Quanly:addshift')
@@ -401,3 +400,10 @@ def Add_shift(request):
 		dataset['form'] = form
 		dataset['title'] = 'create Shift'
 		return render(request,'Shift/addShift.html',dataset)
+
+# daskboard
+def Daskboard(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	data = { 'Cus': KhachHang.objects.count() }
+	return render(request, 'index2.html', data)
