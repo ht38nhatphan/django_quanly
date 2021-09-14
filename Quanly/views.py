@@ -177,7 +177,6 @@ def edit_order(request,id):
 
 		if request.method == 'POST':
 			form = AddOrderdh(data = request.POST,instance = order) if check1 == True else AddOrdertt(data = request.POST,instance = order) if check==True else AddOrder(data = request.POST,instance = order)
-			
 			if form.is_valid():
 				instance = form.save(commit = False)
 				if not check:
@@ -192,23 +191,19 @@ def edit_order(request,id):
 					instance.mac = macobj
 					instance.soKhoi = request.POST.get('soKhoi')
 				instance.trangThai = request.POST.get('trangThai')
-				
 				#check status in tt 
 				# la qun ly ban hang thi cho sua ngay tao
-				if request.POST.get('trangThai') == 'xl' and not check or request.POST.get('trangThai') == 'dgh' and not check:
-					
-					
-					instance.ngayDo = request.POST.get('ngayDo')
-					instance.save()
-					return redirect('Quanly:order')
+				# if request.POST.get('trangThai') == 'xl' and not check or request.POST.get('trangThai') == 'dgh' and not check:
+				# 	instance.ngayDo = request.POST.get('ngayDo')
+				# 	instance.save()
+				# 	return redirect('Quanly:order')
 				# la qun ly tram tron thi cho sua ngay do
-				elif check:
+				if check:
 					instance.save()
 					return redirect('Quanly:order')
 				else:
-					instance.ngayDo = request.POST.get('ngayDo')
 					instance.save()
-				return redirect('Quanly:order')
+					return redirect('Quanly:order')
 
 			else:
 				messages.error(request,'Error Creating Customer ',extra_tags = 'alert alert-warning alert-dismissible show')
@@ -425,8 +420,8 @@ def add_shift(request):
 		dataset = dict()
 		form = AddShift()
 		dataset['form'] = form
-		dataset['title'] = 'create Shift'
-		return render(request,'Shift/addShift.html',dataset)
+		dataset['title'] = 'THEM CA LAM'
+		return render(request,'Shift/add_shift.html',dataset)
 
 # daskboard
 def Daskboard(request):
