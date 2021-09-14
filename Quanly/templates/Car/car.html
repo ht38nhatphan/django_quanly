@@ -18,35 +18,35 @@
                             <table class="table table-bordered verticle-middle table-responsive-sm">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Ho ten</th>
-                                        <th scope="col">So dien thoai</th>
-                                        <th scope="col">Dia chi</th>
-                                        <th scope="col">So CMT</th>
+                                        <th scope="col">Ten xe</th>
+                                        <th scope="col">Bien so</th>
+                                        <th scope="col">Nhan vien Phu trach</th>
                                         <th scope="col">Action</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for nv in khachhang%}
+                                    {% for xe in Xe%}
                                     <tr>
-                                        <td>{{nv.HoTen}}</td>
+                                        <td>{{xe.TenXe}}</td>
                                         <td>
-                                           {{nv.SoDienThoai}}
+                                           {{xe.BienSo}}
                                         </td>
-                                        <td>{{nv.DiaChi}}</td>
-                                        <td>{{nv.SoCMT}}
-                                        </td>
-                                        <td>
+                                        <td>{{xe.nhanVien.HoTen}}</td>
+                                         <td>
                                             <span>
-                                            {% comment %} {% url 'Quanly:edit' nv.id %}
-                                            {% url 'Quanly:delete' nv.id %} {% endcomment %}
-                                                <a href="{% url 'Quanly:edit_customer' nv.id %}" class="mr-4" data-toggle="tooltip"
+                                                <a href="{% url 'Quanly:edit_car' xe.id %}" class="mr-4" data-toggle="tooltip"
                                                     data-placement="top" title="Edit"><i
                                                         class="fa fa-pencil color-muted"></i> </a>
-                                                <a href="{% url 'Quanly:delete_customer' nv.id %}" data-toggle="tooltip"
+                                                <a href="{% url 'Quanly:delete_car' xe.id %}" class=""data-toggle="tooltip"
                                                     data-placement="top" title="Close"><i
                                                         class="fa fa-close color-danger"></i></a>
                                             </span>
                                         </td>
+                                        <!-- <td>
+                                            
+                                           
+                                        </td> -->
                                     </tr>
                                     {% endfor%}
                                 </tbody>
