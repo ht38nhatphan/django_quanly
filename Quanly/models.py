@@ -2,8 +2,6 @@
 from django.db import models
 from django.db.models.fields.related import ForeignKey
 from django.core.validators import MinValueValidator
-import datetime
-from django.utils import timezone
 #sum
 
 class KhachHang(models.Model):
@@ -22,8 +20,8 @@ class VatLieu(models.Model):
 
 class MacBetong(models.Model):
     TenMac = models.TextField(max_length=30)
-    DoSut = models.PositiveIntegerField(default=0,validators= [MinValueValidator(0)])
-    Gia = models.PositiveBigIntegerField(validators=[MinValueValidator(0)])
+    DoSut = models.PositiveIntegerField(default=0, validators= [MinValueValidator(0)])
+    Gia = models.PositiveBigIntegerField(validators= [MinValueValidator(0)])
     vatLieu = models.ManyToManyField(VatLieu, through='ChiTietBeTong')
     def __str__(self):
         return self.TenMac
@@ -65,14 +63,6 @@ class CaLamviec(models.Model):
     nhanvien = models.ManyToManyField(NhanVien)
     soGio = models.IntegerField()
     caLam = models.CharField(max_length=5, choices=CA_LAM )
-    def get_epl_values(self):
-        ret = ''
-        print(self.nhanvien.all())
-        # use models.ManyToMany field's all() method to return all the Department objects that this employee belongs to.
-        for dept in self.nhanvien.all():
-            ret = ret + dept.HoTen + ', '
-        # remove the last ',' and return the value.
-        return ret[:-2]
 
 class TramTron(models.Model):
     tenTramTron = models.CharField(max_length=30)
@@ -100,14 +90,12 @@ class Donhang(models.Model):
     mac = models.ForeignKey(MacBetong, on_delete= models.CASCADE)
     soKhoi = models.PositiveIntegerField(validators=[MinValueValidator(0)])
     tongGia = models.PositiveIntegerField(default=0,validators=[MinValueValidator(0)]) #soKhoi * MacBetong.Gia
-    ngayTao = models.DateTimeField(default=timezone.now)
-    ngayDo = models.DateTimeField(default=timezone.now)
-    
+    ngayTao = models.DateTimeField(auto_now_add=True)
+    ngayDo = models.DateTimeField()
     trangThai = models.CharField(max_length=30, choices=TRANG_THAI )
     object = models.Manager()
     nvBanhang = NhanVienQlyDh()
     QLTramTron = NhanVienQlyTramTron()
-    
 # class QuanLyDonHang (models.Model):
 #     donHang = models.ForeignKey(Donhang, on_delete=models.CASCADE) 
 #     nhanVien = models.ForeignKey(NhanVien)
