@@ -64,10 +64,10 @@ class AddOrder(forms.ModelForm):
 	# ngayTao = forms.DateTimeField( required=True, input_formats=["%Y-%m-%dT%H:%M", ])
 	class Meta:	
 		model = Donhang
-		fields = ['khachHang','tramTron','mac','soKhoi','ngayTao','ngayDo','trangThai']
+		fields = ['khachHang','tramTron','mac','soKhoi','ngayDo','trangThai']
 		widgets = {
 		'ngayDo': forms.DateInput(format=('%d-%m-%Y'), attrs={'firstDay': 1, 'pattern=': '\d{4}-\d{2}-\d{2}', 'lang': 'pl', 'format': 'yyyy-mm-dd', 'type': 'date'}),
-		'ngayTao' : forms.DateInput(format=('%d-%m-%Y'), attrs={'firstDay': 1, 'pattern=': '\d{4}-\d{2}-\d{2}', 'lang': 'pl', 'format': 'yyyy-mm-dd', 'type': 'date'}),
+		
 		}
 		
 		# fields = '__all__'
@@ -82,9 +82,10 @@ class AddOrderdh(forms.ModelForm):
 	class Meta:	
 		model = Donhang
 		# ngayDo = None
-		fields = ['khachHang','tramTron','mac','soKhoi','ngayTao','trangThai']
+		fields = ['khachHang','tramTron','mac','soKhoi','ngayDo','trangThai']
 		widgets = {
-		'ngayTao' : forms.DateInput(format=('%d-%m-%Y'), attrs={'firstDay': 1, 'pattern=': '\d{4}-\d{2}-\d{2}', 'lang': 'pl', 'format': 'yyyy-mm-dd', 'type': 'date'}),
+		
+		'ngayDo': forms.DateInput(format=('%d-%m-%Y'), attrs={'firstDay': 1, 'pattern=': '\d{4}-\d{2}-\d{2}', 'lang': 'pl', 'format': 'yyyy-mm-dd', 'type': 'date'}),
 		}
 		
 class AddOrdertt(forms.ModelForm):	
@@ -94,11 +95,7 @@ class AddOrdertt(forms.ModelForm):
 	class Meta:	
 		model = Donhang
 		
-		fields = ['khachHang','tramTron','mac','soKhoi','ngayDo','trangThai']
-		widgets = {
-		'ngayDo': forms.DateInput(format=('%d-%m-%Y'), attrs={'firstDay': 1, 'pattern=': '\d{4}-\d{2}-\d{2}', 'lang': 'pl', 'format': 'yyyy-mm-dd', 'type': 'date'}),
-		
-		}
+		fields = ['trangThai']
 		
 
 

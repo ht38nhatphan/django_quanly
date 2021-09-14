@@ -100,7 +100,7 @@ class Donhang(models.Model):
     mac = models.ForeignKey(MacBetong, on_delete= models.CASCADE)
     soKhoi = models.PositiveIntegerField(validators=[MinValueValidator(0)])
     tongGia = models.PositiveIntegerField(default=0,validators=[MinValueValidator(0)]) #soKhoi * MacBetong.Gia
-    ngayTao = models.DateTimeField(blank=True)
+    ngayTao = models.DateTimeField(default=timezone.now)
     ngayDo = models.DateTimeField(default=timezone.now)
     
     trangThai = models.CharField(max_length=30, choices=TRANG_THAI )

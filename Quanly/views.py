@@ -99,9 +99,9 @@ def order(request):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')
 	query = "SELECT A.id, C.HoTen as tkh, B.TenMac, soKhoi,B.Gia, soKhoi * B.Gia as tong , ngayTao, ngayDo, trangThai FROM Quanly_donhang A join Quanly_macbetong B on A.mac_id = B.id  JOIN Quanly_khachhang C on A.khachHang_id = C.id join Quanly_tramtron E on A.tramTron_id = E.id WHERE trangThai = 'cxl';"
-	query1 = "SELECT A.id, C.HoTen as tkh, B.TenMac, soKhoi,B.Gia, soKhoi * B.Gia as tong , ngayTao, ngayDo, trangThai FROM Quanly_donhang A join Quanly_macbetong B on A.mac_id = B.id  JOIN Quanly_khachhang C on A.khachHang_id = C.id join Quanly_tramtron E on A.tramTron_id = E.id WHERE trangThai = 'xl' or trangThai='dgh' ;"
+	query1 = "SELECT A.id, C.HoTen as tkh, B.TenMac, soKhoi,B.Gia, soKhoi * B.Gia as tong , ngayTao, ngayDo, trangThai FROM Quanly_donhang A join Quanly_macbetong B on A.mac_id = B.id  JOIN Quanly_khachhang C on A.khachHang_id = C.id join Quanly_tramtron E on A.tramTron_id = E.id  ;"
 	data = {'donhang': Donhang.object.raw(query),
-		'donhang1': Donhang.object.raw(query),
+		'donhang1': Donhang.object.raw(query1),
 		'donhangall': Donhang.object.all(),
 		'title': 'THONG TIN DON HANG'
 	}
@@ -177,44 +177,36 @@ def edit_order(request,id):
 			form = AddOrderdh(data = request.POST,instance = order) if check1 == True else AddOrdertt(data = request.POST,instance = order) if check==True else AddOrder(data = request.POST,instance = order)
 			
 			if form.is_valid():
-				
 				instance = form.save(commit = False)
-				idcustomer = request.POST.get('khachHang')
-				idtram = request.POST.get('tramTron')
-				idmac = request.POST.get('mac')
-				tramobj = get_object_or_404(TramTron,id = idtram)
-				cusobj = get_object_or_404(KhachHang,id = idcustomer)
-				macobj = get_object_or_404(MacBetong,id = idmac)
-				instance.khachHang = cusobj
-				instance.tramTron = tramobj
-				instance.mac = macobj
-				instance.soKhoi = request.POST.get('soKhoi')
-				
-				
-				
-				
-				
+				if not check:
+					idcustomer = request.POST.get('khachHang')
+					idtram = request.POST.get('tramTron')
+					idmac = request.POST.get('mac')
+					tramobj = get_object_or_404(TramTron,id = idtram)
+					cusobj = get_object_or_404(KhachHang,id = idcustomer)
+					macobj = get_object_or_404(MacBetong,id = idmac)
+					instance.khachHang = cusobj
+					instance.tramTron = tramobj
+					instance.mac = macobj
+					instance.soKhoi = request.POST.get('soKhoi')
 				instance.trangThai = request.POST.get('trangThai')
 				
 				#check status in tt 
 				# la qun ly ban hang thi cho sua ngay tao
 				if request.POST.get('trangThai') == 'xl' and not check or request.POST.get('trangThai') == 'dgh' and not check:
 					
-					instance.ngayTao = request.POST.get('ngayTao')
+					
+					instance.ngayDo = request.POST.get('ngayDo')
 					instance.save()
 					return redirect('Quanly:order')
 				# la qun ly tram tron thi cho sua ngay do
 				elif check:
-					
-					instance.ngayDo = request.POST.get('ngayDo')
 					instance.save()
 					return redirect('Quanly:order')
 				else:
-					instance.ngayTao = request.POST.get('ngayTao')
 					instance.ngayDo = request.POST.get('ngayDo')
 					instance.save()
-					
-					return redirect('Quanly:order')
+				return redirect('Quanly:order')
 
 			else:
 				messages.error(request,'Error Creating Customer ',extra_tags = 'alert alert-warning alert-dismissible show')
@@ -223,7 +215,7 @@ def edit_order(request,id):
 		dataset = dict()
 		form = AddOrderdh(request.POST or None,instance = order) if check1 == True else AddOrdertt(request.POST or None,instance = order) if check==True else AddOrder(request.POST or None,instance = order)
 		dataset['form'] = form
-		dataset['title'] = 'TAO DON HANG'
+		dataset['title'] = 'CHINH SUA DON HANG'
 		return render(request,'Order/addOrder.html',dataset)
 #------------------------------------------------account-----------------------------------------
 

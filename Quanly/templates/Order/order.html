@@ -18,10 +18,9 @@
                                         <th scope="col">khach hang</th>
                                         <th scope="col">tram tron</th>
                                         <th scope="col">mac </th>
+                                        <th scope="col">tong tien</th>
                                         <th scope="col">So khoi</th>
-                                        {% if request.user|has_group:"Bán hàng"%}
-                                        <th scope="col">Ngay tao don</th>
-                                        {% elif request.user|has_group:"Quản lý trạm trộn"%}
+                                        {% if request.user|has_group:"Quản lý trạm trộn"%}
                                         <th scope="col">Ngay do</th>
                                         {% else %}
                                         <th scope="col">Ngay tao don</th>
@@ -34,40 +33,48 @@
                                 </thead>
                                 <tbody>
                               {% if request.user|has_group:"Quản lý trạm trộn"%}
-                                    {% for dh in donhang1 %}
+                                    {% for dh in donhang%}
                                     <tr>
                                         <td>{{dh.khachHang}}</td>
                                         <td>
                                            {{dh.tramTron}}
                                         </td>
                                         <td>{{dh.mac}}</td>
+                                        <td>
+                                           {{dh.tong}}
+                                        </td>
                                         <td>{{dh.soKhoi}}
                                         </td>
                                         <td>{{dh.ngayDo}}</td>
+
                                         <td>{{dh.trangThai}}</td>
                                         <td>
                                             <span>
                                                 <a href="{% url 'Quanly:edit_order' dh.id%}" class="mr-4" data-toggle="tooltip"
                                                     data-placement="top" title="Edit"><i
                                                         class="fa fa-pencil color-muted"></i> </a>
-                                                <a href="{% url 'Quanly:delete_order' dh.id %}" data-toggle="tooltip"
+                                                {% comment %} <a href="{% url 'Quanly:delete_order' dh.id %}" data-toggle="tooltip"
                                                     data-placement="top" title="Close"><i
-                                                        class="fa fa-close color-danger"></i></a>
+                                                        class="fa fa-close color-danger"></i></a> {% endcomment %}
                                             </span>
                                         </td>
                                     </tr>
                                     {% endfor%}
                                     {% elif request.user|has_group:"Bán hàng"%}
-                                        {% for dh in donhang2 %}
+                                        {% for dh in donhang1 %}
                                             <tr>
                                                 <td>{{dh.khachHang}}</td>
                                                 <td>
                                                 {{dh.tramTron}}
                                                 </td>
                                                 <td>{{dh.mac}}</td>
+                                                 <td>
+                                                 {{dh.tong}}
+                                                </td>
                                                 <td>{{dh.soKhoi}}
                                                 </td>
                                                 <td>{{dh.ngayTao}}</td>
+                                                <td>{{dh.ngayDo}}</td>
                                                 <td>{{dh.trangThai}}</td>
                                                 <td>
                                                     <span>
@@ -82,13 +89,16 @@
                                             </tr>
                                             {% endfor%} 
                                     {% else %}
-                                    {% for dh in donhangall %}
+                                    {% for dh in donhang1 %}
                                             <tr>
                                                 <td>{{dh.khachHang}}</td>
                                                 <td>
                                                 {{dh.tramTron}}
                                                 </td>
                                                 <td>{{dh.mac}}</td>
+                                                 <td>
+                                                 {{dh.tong}}
+                                                  </td>
                                                 <td>{{dh.soKhoi}}
                                                 </td>
                                                 <td>{{dh.ngayTao}}</td>
