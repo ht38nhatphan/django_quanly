@@ -33,7 +33,7 @@
                                 </thead>
                                 <tbody>
                               {% if request.user|has_group:"Quản lý trạm trộn"%}
-                                    {% for dh in donhang%}
+                                    {% for dh in donhang1%}
                                     <tr>
                                         <td>{{dh.khachHang}}</td>
                                         <td>
@@ -41,13 +41,16 @@
                                         </td>
                                         <td>{{dh.mac}}</td>
                                         <td>
-                                           {{dh.tong}}
+                                           {{dh.Total}}
                                         </td>
                                         <td>{{dh.soKhoi}}
                                         </td>
+                                       
+                                        <td>{{dh.ngayTao}}</td>
+                                        
                                         <td>{{dh.ngayDo}}</td>
 
-                                        <td>{{dh.trangThai}}</td>
+                                        <td>{{dh.get_trangThai_display}}</td>
                                         <td>
                                             <span>
                                                 <a href="{% url 'Quanly:edit_order' dh.id%}" class="mr-4" data-toggle="tooltip"
@@ -69,13 +72,13 @@
                                                 </td>
                                                 <td>{{dh.mac}}</td>
                                                  <td>
-                                                 {{dh.tong}}
+                                                 {{dh.Total}}
                                                 </td>
                                                 <td>{{dh.soKhoi}}
                                                 </td>
                                                 <td>{{dh.ngayTao}}</td>
                                                 <td>{{dh.ngayDo}}</td>
-                                                <td>{{dh.trangThai}}</td>
+                                                <td>{{dh.get_trangThai_display}}</td>
                                                 <td>
                                                     <span>
                                                         <a href="{% url 'Quanly:edit_order' dh.id%}" class="mr-4" data-toggle="tooltip"
@@ -89,7 +92,7 @@
                                             </tr>
                                             {% endfor%} 
                                     {% else %}
-                                    {% for dh in donhang1 %}
+                                    {% for dh in donhang %}
                                             <tr>
                                                 <td>{{dh.khachHang}}</td>
                                                 <td>
@@ -97,13 +100,13 @@
                                                 </td>
                                                 <td>{{dh.mac}}</td>
                                                  <td>
-                                                 {{dh.tong}}
+                                                 {{dh.Total}}
                                                   </td>
                                                 <td>{{dh.soKhoi}}
                                                 </td>
                                                 <td>{{dh.ngayTao}}</td>
                                                 <td>{{dh.ngayDo}}</td>
-                                                <td>{{dh.trangThai}}</td>
+                                                <td>{{dh.get_trangThai_display}}</td>
                                                 <td>
                                                     <span>
                                                         <a href="{% url 'Quanly:edit_order' dh.id%}" class="mr-4" data-toggle="tooltip"

@@ -1,10 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{%load static%}
     <div class="content-body btn-page">
         <div class="container-fluid"> 
-         <h1>hihihddd</h1> 
-          main
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 style="text-align: center; color: rgb(230, 38, 79); padding-bottom: 30px;">TRANG CHU</h1> 
+                </div>
+                <div class="col-sm-12">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia ullam consectetur dicta corrupti? Facilis sint ut cum, dolores culpa sed dicta earum, molestiae sunt amet harum quibusdam eos similique rem!
+
+                </p>
+                </div>
+                <div class="col-sm-12 col-12">
+                    <img src="{% static 'images/c.jpg'%}" alt="">
+                </div>  
+                <div class="col-sm-12" style="margin-top: 30px;">
+                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Expedita harum minus, reprehenderit incidunt, ipsam iure animi maiores modi consequatur aspernatur numquam laboriosam. Perferendis, doloribus unde delectus voluptas dolorem alias sint..</p>
+                </div>
+                <div class="col-sm-12 col-12">
+                    <img src="{% static 'images/d.jpg'%}" alt="">
+                </div> 
+            </div>
+        
         </div>
     </div>
 {%endblock%}

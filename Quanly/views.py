@@ -1,4 +1,5 @@
 
+from django.db.models.aggregates import Count, Min
 from django.http.response import HttpResponse
 from django.contrib.auth.models import Group 
 from django.shortcuts  import render, redirect,get_list_or_404,get_object_or_404
@@ -98,15 +99,16 @@ def deletecustomer(request,id):
 def order(request):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')
-	query = "SELECT A.id, C.HoTen as tkh, B.TenMac, soKhoi,B.Gia, soKhoi * B.Gia as tong , ngayTao, ngayDo, trangThai FROM Quanly_donhang A join Quanly_macbetong B on A.mac_id = B.id  JOIN Quanly_khachhang C on A.khachHang_id = C.id join Quanly_tramtron E on A.tramTron_id = E.id WHERE trangThai = 'cxl';"
-	query1 = "SELECT A.id, C.HoTen as tkh, B.TenMac, soKhoi,B.Gia, soKhoi * B.Gia as tong , ngayTao, ngayDo, trangThai FROM Quanly_donhang A join Quanly_macbetong B on A.mac_id = B.id  JOIN Quanly_khachhang C on A.khachHang_id = C.id join Quanly_tramtron E on A.tramTron_id = E.id  ;"
-	data = {'donhang': Donhang.object.raw(query),
-		'donhang1': Donhang.object.raw(query1),
-		'donhangall': Donhang.object.all(),
-		'title': 'THONG TIN DON HANG'
-	}
-	# data = { 'donhang1': Donhang.QLTramTron.all(), 
-	# 		'donhang2': Donhang.nvBanhang.all()  }
+	# query = "SELECT A.id, C.HoTen as tkh, B.TenMac, soKhoi,B.Gia, soKhoi * B.Gia as tong , ngayTao, ngayDo, trangThai FROM Quanly_donhang A join Quanly_macbetong B on A.mac_id = B.id  JOIN Quanly_khachhang C on A.khachHang_id = C.id join Quanly_tramtron E on A.tramTron_id = E.id WHERE trangThai = 'cxl';"
+	# query1 = "SELECT A.id, C.HoTen as tkh, B.TenMac, soKhoi,B.Gia, soKhoi * B.Gia as tong , ngayTao, ngayDo, trangThai FROM Quanly_donhang A join Quanly_macbetong B on A.mac_id = B.id  JOIN Quanly_khachhang C on A.khachHang_id = C.id join Quanly_tramtron E on A.tramTron_id = E.id  ;"
+	# data = {'donhang': Donhang.object.raw(query),
+	# 	'donhang1': Donhang.object.raw(query1),
+	# 	'donhangall': Donhang.object.all(),
+	# 	'title': 'THONG TIN DON HANG'
+	# }
+	data = { 'donhang1': Donhang.QLTramTron.all(), 
+			'donhang2': Donhang.nvBanhang.all()  ,
+			'donhang': Donhang.object.all()}
 	return render(request, 'Order/order.html', data)
 def delete_order(request,id):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
@@ -423,8 +425,24 @@ def add_shift(request):
 		dataset = dict()
 		form = AddShift()
 		dataset['form'] = form
-		dataset['title'] = 'NHAP CA LAM VIEC'
-		return render(request,'Shift/add_shift.html',dataset)				
+		dataset['title'] = 'create Shift'
+		return render(request,'Shift/addShift.html',dataset)
+
+# daskboard
+def Daskboard(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	
+	data = {'Cus': KhachHang.objects.count(), #dem so khach hang
+			'Dh': Donhang.object.count(), # dem so don hang
+			'doanhthu': Donhang.object.filter(trangThai = 'dgh')[:1],
+			'donhang': Donhang.object.all(),
+			'dhcxl': Donhang.object.exclude(trangThai = 'dgh' ).count()
+			# 'doanhthu' : Donhang.object.raw(query)
+	 }
+	print(data['doanhthu'])
+	return render(request, 'index2.html', data)
+					
 def edit_shift(request, id):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')	

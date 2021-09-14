@@ -30,6 +30,7 @@ urlpatterns = [
     path('AddCar/',views.add_car,name='AddCar'),
     path('Car/edit/<int:id>',views.edit_car,name='edit_car'),
     path('Car/delete/<int:id>',views.delete_car, name='delete_car'),
+     path('daskboard/', views.Daskboard, name = 'dask'),
 #     path('savekh/', views.saveCustomer, name='savecustomer'),
 #    order
     

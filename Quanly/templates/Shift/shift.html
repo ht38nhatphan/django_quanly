@@ -25,7 +25,7 @@
                               {% if request.user.is_superuser or request.user|has_group:"Quản lý trạm trộn"%}
                                     {% for ca in Ca %}
                                     <tr>
-                                        <td>{{ca.caLam}}</td>
+                                        <td>{{ca.get_caLam_display}}</td>
                                         <td>
                                            {{ca.soGio}}
                                         </td>
