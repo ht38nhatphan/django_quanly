@@ -104,6 +104,14 @@ class Donhang(models.Model):
     object = models.Manager()
     nvBanhang = NhanVienQlyDh()
     QLTramTron = NhanVienQlyTramTron()
+    @property
+    def diff_d_count(self):
+        dt=0
+        for dtt in Donhang.object.filter(trangThai = 'dgh'):
+            dt = dt + dtt.soKhoi *  dtt.mac.Gia
+        return dt
+    def Total(self):
+        return self.soKhoi * self.mac.Gia
 # class QuanLyDonHang (models.Model):
 #     donHang = models.ForeignKey(Donhang, on_delete=models.CASCADE) 
 #     nhanVien = models.ForeignKey(NhanVien)

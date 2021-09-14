@@ -1,4 +1,5 @@
 
+from django.db.models.aggregates import Count, Min
 from django.http.response import HttpResponse
 from django.contrib.auth.models import Group 
 from django.shortcuts  import render, redirect,get_list_or_404,get_object_or_404
@@ -8,9 +9,7 @@ from django.views.generic import DeleteView
 from .forms import AddCustomer, AddShift, AddStaff,UserLogin,UserAddForm,AddOrder
 from django.contrib import messages
 from django.contrib.auth.models import Group,User,UserManager
-import datetime
-from django.db.models import F
-from django.db import connection
+
 # Create your views here.
 #------------------------------------MAIN---------------------------
 def index(request):
@@ -270,91 +269,7 @@ def delete_staff(request,id):
 		get_object_or_404(NhanVien, id = id).delete()
 		return redirect('Quanly:staff')
 
-# if request.method == 'POST':
-#         form = AddCustomer(data = request.POST or None)
-# 		if form.is_valid():
-# 			instance = form.save(commit = False)
-# 			# user = request.POST.get('user')
-# 			# assigned_user = User.objects.get(id = user)
-# 			# instance.user = assigned_user
 
-# 			instance.HoTen= request.POST.get('HoTen')
-# 			instance.SoDienThoai = request.POST.get('SoDienThoai')
-# 			instance.DiaChi = request.POST.get('DiaChi')
-# 			instance.SoCMT = request.POST.get('SoCMT')
-			
-
-# 			# now = datetime.datetime.now()
-# 			# instance.created = now
-# 			# instance.updated = now
-
-# 			instance.save()
-
-# 			# employee_email = instance.user.email
-# 			# email_subject = 'Humanly Access Credentials'
-# 			# email_message = 'You have been added to Rabotecgroup Staff List,username and password'
-# 			# from_email = settings.EMAIL_HOST_USER
-# 			# to_email = [employee_email]
-# 			'''
-# 			Work on it - user@gmail.com & user@rabotecgroup.com -> send Template
-# 			'''
-# 			# send_mail(
-# 			# 	email_subject,
-# 			# 	email_message,
-# 			# 	from_email,
-# 			# 	to_email,
-# 			# 	fail_silently=True
-# 			# 	)
-            
-# 			#Send email - username & password to employee, how to get users decrypted password ?
-            
-# 			return redirect('QuanLy:addcustomer')
-# 		else:
-# 			messages.error(request,'Trying to create dublicate employees with a single user account ',extra_tags = 'alert alert-warning alert-dismissible show')
-# 			return redirect('QuanLy:addcustomer')
-# 	dataset = dict()
-# 	form = AddCustomer()
-# 	dataset['form'] = form
-# 	dataset['title'] = 'create customer'
-# 	return render(request,'addcustomer.html',dataset)
-# def saveCustomer(request):
-#     # g = addcustomer()
-#     if request.method == 'POST':
-#         g = addcustomer(request.POST)
-#         if g.is_valid():
-#             instance = g.save(commit = False)
-#             instance.save() 
-#             username = g.cleaned_data.get("HoTen")
-
-#             messages.success(request,'Account created for {0} !!!'.format(username),extra_tags = 'alert alert-success alert-dismissible show')
-#             return redirect('Quanly:addcustomer') 
-# 		    # return redirect('Quanly:addcustomer')   
-#         else:
-#             messages.error(request,'Username is invalid',extra_tags = 'alert alert-warning alert-dismissible show')
-#             return redirect('Quanly:addcustomer')
-	 	
-
-    # def register_user_view(request):
-	# # WORK ON (MESSAGES AND UI) & extend with email field
-	# if request.method == 'POST':
-	# 	form = UserAddForm(data = request.POST)
-	# 	if form.is_valid():
-	# 		instance = form.save(commit = False)
-	# 		instance.save()
-	# 		username = form.cleaned_data.get("username")
-
-	# 		messages.success(request,'Account created for {0} !!!'.format(username),extra_tags = 'alert alert-success alert-dismissible show' )
-	# 		return redirect('accounts:register')
-	# 	else:
-	# 		messages.error(request,'Username or password is invalid',extra_tags = 'alert alert-warning alert-dismissible show')
-	# 		return redirect('accounts:register')
-
-
-	# form = UserAddForm()
-	# dataset = dict()
-	# dataset['form'] = form
-	# dataset['title'] = 'register users'
-	# return render(request,'accounts/register.html',dataset)
 
 #  Quan ly xe
 
@@ -380,13 +295,7 @@ def Add_shift(request):
 		if request.method == 'POST':
 			form = AddShift(data = request.POST)
 			if form.is_valid():
-				# instance = form.save(commit = False)
-				# instance.caLam= request.POST.get('caLam')
-				# idnv = request.POST.get('nhanvien')
-				# nvobj = get_object_or_404(NhanVien,id = idnv)
-				# instance.nhanvien = nvobj
-				# instance.soGio = request.POST.get('soGio')
-				# instance.save()
+			
 				form.save()
 
 				messages.success(request,'Shift Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
@@ -405,5 +314,13 @@ def Add_shift(request):
 def Daskboard(request):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')
-	data = { 'Cus': KhachHang.objects.count() }
+	
+	data = {'Cus': KhachHang.objects.count(), #dem so khach hang
+			'Dh': Donhang.object.count(), # dem so don hang
+			'doanhthu': Donhang.object.filter(trangThai = 'dgh')[:1],
+			'donhang': Donhang.object.all(),
+			'dhcxl': Donhang.object.exclude(trangThai = 'dgh' ).count()
+			# 'doanhthu' : Donhang.object.raw(query)
+	 }
+	print(data['doanhthu'])
 	return render(request, 'index2.html', data)
