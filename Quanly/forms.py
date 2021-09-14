@@ -5,10 +5,11 @@ from django.forms import widgets
 from django.template.defaulttags import widthratio
 from django import forms
 import datetime
-from .models import CaLamviec, Donhang, KhachHang, NhanVien
+from django.forms import DateTimeField
+from .models import CaLamviec, Donhang, KhachHang, NhanVien, XeBon
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib.auth.models import Group 
 
 class AddCustomer(forms.ModelForm):
      class Meta:
@@ -57,27 +58,67 @@ class UserLogin(forms.Form):
 
 # order
 
-class AddOrder(forms.ModelForm):
+class AddOrder(forms.ModelForm):	
+	
 	# ngayDo = forms.DateTimeField(required=True, input_formats=["%Y-%m-%dT%H:%M", ])
 	# ngayTao = forms.DateTimeField( required=True, input_formats=["%Y-%m-%dT%H:%M", ])
-	class Meta:
-		model = Donhang	
-		fields = '__all__'
+	class Meta:	
+		model = Donhang
+		fields = ['khachHang','tramTron','mac','soKhoi','ngayDo','trangThai']
 		widgets = {
-        'ngayDo': forms.DateInput(format=('%d-%m-%Y'), attrs={'firstDay': 1, 'pattern=': '\d{4}-\d{2}-\d{2}', 'lang': 'pl', 'format': 'yyyy-mm-dd', 'type': 'date'}),
-    	}
+		'ngayDo': forms.DateInput(format=('%d-%m-%Y'), attrs={'firstDay': 1, 'pattern=': '\d{4}-\d{2}-\d{2}', 'lang': 'pl', 'format': 'yyyy-mm-dd', 'type': 'date'}),
+		
+		}
+		
 		# fields = '__all__'
         # widgets = {
         #     'my_date': DateInput(attrs={'type': 'date'})
         # }
+
+class AddOrderdh(forms.ModelForm):	
+	
+	# ngayDo = forms.DateTimeField(required=True, input_formats=["%Y-%m-%dT%H:%M", ])
+	# ngayTao = forms.DateTimeField( required=True, input_formats=["%Y-%m-%dT%H:%M", ])
+	class Meta:	
+		model = Donhang
+		# ngayDo = None
+		fields = ['khachHang','tramTron','mac','soKhoi','ngayDo','trangThai']
+		widgets = {
+		
+		'ngayDo': forms.DateInput(format=('%d-%m-%Y'), attrs={'firstDay': 1, 'pattern=': '\d{4}-\d{2}-\d{2}', 'lang': 'pl', 'format': 'yyyy-mm-dd', 'type': 'date'}),
+		}
+		
+class AddOrdertt(forms.ModelForm):	
+	
+	# ngayDo = forms.DateTimeField(required=True, input_formats=["%Y-%m-%dT%H:%M", ])
+	# ngayTao = forms.DateTimeField( required=True, input_formats=["%Y-%m-%dT%H:%M", ])
+	class Meta:	
+		model = Donhang
+		
+		fields = ['trangThai']
+		
+
+
+
+
+
+
+
+
+
+
 
 class AddStaff(forms.ModelForm):
 	class Meta:
 		model = NhanVien
 		fields = '__all__'
 
-
 class AddShift(forms.ModelForm):
 	class Meta:
 		model = CaLamviec
+		fields = '__all__'
+
+class AddCar(forms.ModelForm):
+	class Meta:
+		model = XeBon
 		fields = '__all__'

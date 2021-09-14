@@ -87,8 +87,11 @@
 
 
     <script>
-    $(document).on('click', '.fa', function(){
+    $(document).on('click', '.fa-close', function(){
     return confirm('Are you sure you want to delete this?');
+})
+    $(document).on('click', '#edit', function(){
+    return location.reload();
 })
     </script>
 

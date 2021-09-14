@@ -18,12 +18,7 @@
                             <p class="mb-0">Your business dashboard template</p>
                         </div>
                     </div>
-                    <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Layout</a></li>
-                            <li class="breadcrumb-item active"><a href="javascript:void(0)">Blank</a></li>
-                        </ol>
-                    </div>
+                   
                 </div>
 
                 <div class="row">
@@ -34,7 +29,7 @@
                                     <i class="ti-money text-success border-success"></i>
                                 </div>
                                 <div class="stat-content d-inline-block">
-                                    <div class="stat-text">Tong doanh thu</div>
+                                    <div class="stat-text">Doanh thu</div>
                                     {% for dt in doanhthu %}
                                     <div class="stat-digit">{{dt.diff_d_count}}</div>
                                     {%endfor%}
@@ -75,7 +70,7 @@
                                     <i class="ti-link text-danger border-danger"></i>
                                 </div>
                                 <div class="stat-content d-inline-block">
-                                    <div class="stat-text">Don hang chua giao</div>
+                                    <div class="stat-text">DH chua giao</div>
                                     <div class="stat-digit">{{dhcxl}}</div>
                                 </div>
                             </div>

@@ -11,7 +11,7 @@
                 <a href="{% url 'Quanly:index' %}"> back </a>
             </section>
                     <div class="card-header">
-                        <h4 class="card-title">Thong tin xe</h4>
+                        <h4 class="card-title">{{title}}</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -21,6 +21,7 @@
                                         <th scope="col">Ten xe</th>
                                         <th scope="col">Bien so</th>
                                         <th scope="col">Nhan vien Phu trach</th>
+                                        <th scope="col">Action</th>
                                         
                                     </tr>
                                 </thead>
@@ -32,7 +33,16 @@
                                            {{xe.BienSo}}
                                         </td>
                                         <td>{{xe.nhanVien.HoTen}}</td>
-                                        
+                                         <td>
+                                            <span>
+                                                <a href="{% url 'Quanly:edit_car' xe.id %}" class="mr-4" data-toggle="tooltip"
+                                                    data-placement="top" title="Edit"><i
+                                                        class="fa fa-pencil color-muted"></i> </a>
+                                                <a href="{% url 'Quanly:delete_car' xe.id %}" class=""data-toggle="tooltip"
+                                                    data-placement="top" title="Close"><i
+                                                        class="fa fa-close color-danger"></i></a>
+                                            </span>
+                                        </td>
                                         <!-- <td>
                                             
                                            
