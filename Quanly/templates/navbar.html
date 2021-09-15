@@ -161,7 +161,9 @@
                         <li><a href="/order">Them don hang</a></li>
                         
                     {% endif %}     
-                    <li><a href="/od">Thong tin don hang</a></li></ul>  
+                    <li><a href="/od">Thong tin don hang</a></li>
+                    <li><a href="/order_detail">Chi tiet xe don hang</a></li></ul>  
+
                 </li>
                 {% if request.user.is_superuser or not request.user|has_group:"Quản lý trạm trộn"%}
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i

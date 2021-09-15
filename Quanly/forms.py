@@ -100,14 +100,6 @@ class AddOrdertt(forms.ModelForm):
 
 
 
-
-
-
-
-
-
-
-
 class AddStaff(forms.ModelForm):
 	class Meta:
 		model = NhanVien

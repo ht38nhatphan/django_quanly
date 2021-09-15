@@ -54,6 +54,11 @@ class XeBon(models.Model):
     TenXe = models.TextField(max_length=40)
     BienSo = models.TextField(max_length=20)
     nhanVien = models.ForeignKey(NhanVien, on_delete= models.CASCADE)
+    TRANG_THAI = (
+        ('R', 'Roi'),
+        ('B', 'Ban'),
+    )
+    trangThaiXe = models.CharField(null=True,max_length=5, choices=TRANG_THAI)
 
 class CaLamviec(models.Model):
     CA_LAM = (

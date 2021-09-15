@@ -15,6 +15,7 @@
                             <table class="table table-bordered verticle-middle table-responsive-sm">
                                 <thead>
                                     <tr>
+                                        <th scope="col">ID</th>
                                         <th scope="col">khach hang</th>
                                         <th scope="col">tram tron</th>
                                         <th scope="col">mac </th>
@@ -35,6 +36,7 @@
                               {% if request.user|has_group:"Quản lý trạm trộn"%}
                                     {% for dh in donhang1%}
                                     <tr>
+                                        <td>{{dh.id}}</td>
                                         <td>{{dh.khachHang}}</td>
                                         <td>
                                            {{dh.tramTron}}
@@ -67,6 +69,7 @@
                                     {% elif request.user|has_group:"Bán hàng"%}
                                         {% for dh in donhang2 %}
                                             <tr>
+                                                <td>{{dh.id}}</td>
                                                 <td>{{dh.khachHang}}</td>
                                                 <td>
                                                 {{dh.tramTron}}
@@ -95,6 +98,7 @@
                                     {% else %}
                                     {% for dh in donhang %}
                                             <tr>
+                                                <td>{{dh.id}}</td>
                                                 <td>{{dh.khachHang}}</td>
                                                 <td>
                                                 {{dh.tramTron}}
