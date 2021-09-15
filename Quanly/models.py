@@ -104,6 +104,7 @@ class Donhang(models.Model):
     object = models.Manager()
     nvBanhang = NhanVienQlyDh()
     QLTramTron = NhanVienQlyTramTron()
+    Xe = models.ManyToManyField(XeBon, through='ChiTietDonHang')
     @property
     def diff_d_count(self):
         dt=0
@@ -115,3 +116,8 @@ class Donhang(models.Model):
 # class QuanLyDonHang (models.Model):
 #     donHang = models.ForeignKey(Donhang, on_delete=models.CASCADE) 
 #     nhanVien = models.ForeignKey(NhanVien)
+class ChiTietDonHang (models.Model):
+    donHang = models.ForeignKey(Donhang, on_delete=models.CASCADE) 
+    xeBon = models.ForeignKey(XeBon,on_delete=models.CASCADE)
+    class Meta:
+        unique_together = [['donHang', 'xeBon']]
