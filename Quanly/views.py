@@ -280,6 +280,12 @@ def delete_orderdetails(request,id):
 
 
 
+def order_details(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		data = {'CTDH': ChiTietDonHang.objects.all(),'title' :'QUAN LY CHI TIET DON HANG'}
+		return render(request, 'Order/order_details.html', data)
 
 def view_Order_detail(request,id):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
@@ -289,6 +295,10 @@ def view_Order_detail(request,id):
 		CT = ChiTietDonHang.objects.filter(donHang = orderID)
 		data = {'CT':CT ,'title':'Chi Tiet Xe don hang '}
 		return render(request, 'Order/view_order_detail.html',data)
+
+
+
+
 #------------------------------------------------account-----------------------------------------
 
 # login
