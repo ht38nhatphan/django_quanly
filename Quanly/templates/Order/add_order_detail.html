@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %} 
+{% block extrahead %}
+<style>
+    .field-__str__ {
+        font-family: Consolas, monospace;
+    }
+</style>
+{% endblock %}
+{% block stylesheet %} 
+
+.sec{ border:1px solid yellow; background:red; } 
+.form-wrapper{ -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2); padding: 2%; background:#fff !important; padding-bottom:5%; } .btn-lg{ padding:8px 30px; } .main-panel > .content { padding: 60px 15px; min-height:
+calc(100% - 123px); }
+ #override-start{ background:none !important; top: 35% !important; right:13px; color:#000; font-size: 24px;    margin-right: -400px;
+    margin-top: -13px; } 
+ .alert-warning{ background:#fd7b7b; } 
+ .alert-success { background-color: #82b72a; } 
+ .alert-success,.alert-warning{ font-size:16px; color:#fff;
+} 
+.prev-holder .prev-avatar{ border-radius:50%; width:250px; height:250px; -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5prgba(0,0,0,0.2); box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12),
+0 1px 5px 0 rgba(0,0,0,0.2); }
+ input, button, select, optgroup, textarea { margin: 0; font-family: inherit; font-size: inherit; line-height: inherit; width: 100%; height: 42px; margin-bottom: 15px; } 
+label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    color: black;
+    font-weight: bold;
+}
+{% endblock %} 
+{% block content%}
+<div class="content-body btn-page">
+    <div class="container-fluid">
+        <section class="form-wrapper">
+            <section class="row">
+                <section class="col col-sm-8 offset-sm-2">
+
+                    {% if messages %} {% for message in messages %}
+                    <div {% if message.tags %} class="{{ message.tags}}" {% endif %}>
+                        {{ message }}
+                        <button type="button" class="close" id="override-start" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    {% endfor %} {% endif %}
+
+                </section>
+            </section>
+
+            <section class="row">
+            <section class="col-lg-12 col-md-12 col-sm-12 text-right">
+                <a href="{% url 'Quanly:order' %}"> back </a>
+            </section>
+                <section class="col-lg-12 col-md-12 col-sm-12 text-center">
+                    <h3 class="title-h3">{{title}}</h3>
+                </section>
+            </section>
+            <section class="row">
+                <section class="col-lg-12 col-md-12 col-sm-12">
+                    <form action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %} {{form | crispy }}
+                        {% if title == 'TAO DON HANG' %}
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+                        {% else %}
+                        <button type="submit" id = 'edit' class="btn btn-primary btn-lg btn-block">Submit</button>
+                        {% endif %}
+                        
+                    </form>
+                </section>
+            </section>
+        </section>
+    </div>
+</div>
+
+{%endblock%}

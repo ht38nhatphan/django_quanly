@@ -223,6 +223,63 @@ def edit_order(request,id):
 		dataset['title'] = 'CHINH SUA DON HANG'
 		return render(request,'Order/addOrder.html',dataset)
 
+#------------------------------------order detail----------------------------------------------------
+
+def add_orderdetail(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		order = get_object_or_404(Donhang,id=id)
+		if request.method == 'POST':
+			form = AddOrderdetails(request.POST or None)
+			if form.is_valid():
+				if order.trangThai == 'xl':
+					form.save()
+					messages.success(request,'orderdetail Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
+					return redirect('Quanly:add_orderdetail')
+				else:
+					messages.error(request,'Error editing orderdetail ',extra_tags = 'alert alert-warning alert-dismissible show')
+					return redirect('Quanly:add_orderdetail')
+		dataset = dict()
+		form = AddOrderdetails()
+		dataset['form'] = form
+		dataset['title'] = 'THEM XE CHAY DON HANG'
+		return render(request,'Order/add_order_detail.html',dataset)
+
+def edit_orderdetail(request, id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		order = get_object_or_404(ChiTietDonHang,id=id)
+		if request.method == 'POST':
+			form = AddOrderdetails(data = request.POST,instance = order)
+			if form.is_valid():
+				instance = form.save(commit = False)
+				iddh = request.POST.get('donHang')
+				idxe = request.POST.get('xeBon')
+				dhobj = get_object_or_404(Donhang, id=iddh)
+				xeobj = get_object_or_404(XeBon,id=idxe)
+				instance.donHang = dhobj
+				instance.xeBon = xeobj
+				instance.save()
+				messages.success(request,'orderdetail Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
+				return redirect('Quanly:add_order')
+		dataset = dict()
+		form = AddOrderdetails(data = request.POST,instance= order)
+		dataset['form'] = form
+		dataset['title'] = 'SUA XE CHAY DON HANG'
+		return render(request,'Order/order.html')
+def delete_orderdetails(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		get_object_or_404(ChiTietDonHang,id=id).delete()
+		return redirect('Quanly:order')
+
+
+
+
+
 
 def view_Order_detail(request,id):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
