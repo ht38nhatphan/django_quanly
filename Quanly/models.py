@@ -59,6 +59,8 @@ class XeBon(models.Model):
         ('B', 'Ban'),
     )
     trangThaiXe = models.CharField(null=True,max_length=5, choices=TRANG_THAI)
+    def __str__(self):
+        return self.TenXe + ' '+ self.get_trangThaiXe_display()
 
 class CaLamviec(models.Model):
     CA_LAM = (
@@ -85,11 +87,11 @@ class TramTron(models.Model):
 # phan quyen nhan vien tram tron
 class NhanVienQlyTramTron(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(trangThai = 'cxl') or super().get_queryset().filter(trangThai = 'dgh')
+        return super().get_queryset().exclude(trangThai = 'dgh')
 
 class NhanVienQlyDh(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(trangThai = 'cxl') 
+        return super().get_queryset().exclude(trangThai = 'xl')
 
 
 class Donhang(models.Model):
@@ -110,7 +112,8 @@ class Donhang(models.Model):
     object = models.Manager()
     nvBanhang = NhanVienQlyDh()
     QLTramTron = NhanVienQlyTramTron()
-    
+    def __str__(self):
+        return 'DON HANG '+ str(self.id)
     @property
     def diff_d_count(self):
         dt=0
@@ -119,6 +122,7 @@ class Donhang(models.Model):
         return dt
     def Total(self):
         return self.soKhoi * self.mac.Gia
+    
 # class QuanLyDonHang (models.Model):
 #     donHang = models.ForeignKey(Donhang, on_delete=models.CASCADE) 
 #     nhanVien = models.ForeignKey(NhanVien)

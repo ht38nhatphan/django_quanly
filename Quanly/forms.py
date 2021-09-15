@@ -142,3 +142,7 @@ class AddOrderdetails(forms.ModelForm):
 	class Meta:
 		model = ChiTietDonHang
 		fields = '__all__'
+class AddOrderdetailsxl(forms.ModelForm):
+	class Meta:
+		model = ChiTietDonHang
+		fields = ['xeBon']

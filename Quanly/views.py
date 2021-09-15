@@ -201,14 +201,28 @@ def edit_order(request,id):
 				# 	instance.save()
 				# 	return redirect('Quanly:order')
 				# la qun ly tram tron thi cho sua ngay do
-				
-				if (request.POST.get('trangThai') == 'cxl' and check and dhcu== 'dgh') or (request.POST.get('trangThai') == 'xl' and check and dhcu== 'cxl') or (request.POST.get('trangThai') == 'dgh' and check and dhcu== 'cxl') :
+				# print (dhcu)
+				# print(instance.trangThai)
+				print(request.POST.get('trangThai'))
+				if (request.POST.get('trangThai') == 'cxl' and check and dhcu== 'dgh') or (dhcu== 'xl' and request.POST.get('trangThai') == 'cxl' and check ) or (request.POST.get('trangThai') == 'dgh' and check and dhcu== 'cxl'):
 					messages.error(request,'Error editing status ',extra_tags = 'alert alert-warning alert-dismissible show')
 					return redirect('Quanly:add_order')
+				elif request.POST.get('trangThai') == 'xl':
+					instance.save()
+					return redirect('Quanly:add_orderdetailxl',id = id)
 				elif check:
 					instance.save()
 					return redirect('Quanly:order')
 				
+				elif request.POST.get('trangThai') == 'dgh':
+					ctdh = ChiTietDonHang.objects.filter(donHang = id)
+					# xect = get_object_or_404(XeBon,id=ctdh.xeBon.id)
+					# form1 = AddCar(data = request.POST,instances = xect)
+					for i in ctdh:
+						i.xeBon.trangThaiXe = 'R'
+						print (i.xeBon.trangThaiXe)
+						i.xeBon.save()
+					instance.save()
 				else:
 					instance.save()
 					return redirect('Quanly:order')
@@ -224,7 +238,42 @@ def edit_order(request,id):
 		return render(request,'Order/addOrder.html',dataset)
 
 #------------------------------------order detail----------------------------------------------------
+def add_orderdetailxl(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		order = get_object_or_404(Donhang,id=id)
+		if request.method == 'POST':
+			form = AddOrderdetailsxl(request.POST or None)
+			if form.is_valid():
+				instance = form.save(commit = False)
+				idxe = request.POST.get('xeBon')
+				xeobj = get_object_or_404(XeBon,id=idxe)
+				print(xeobj.trangThaiXe)
+				if xeobj.trangThaiXe == 'R':
+					instance.donHang = order
+					instance.xeBon = xeobj
+					xeobj.trangThaiXe = 'B'
+					xeobj.save()
+					instance.save()
+					
+					messages.success(request,'orderdetail Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
+					return redirect('Quanly:orderdetail')
 
+				else:
+					messages.error(request,'Error editing orderdetail ',extra_tags = 'alert alert-warning alert-dismissible show')
+					dataset = dict()
+					form = AddOrderdetailsxl()
+					dataset['form'] = form
+					dataset['title'] = 'THEM XE CHAY DON HANG'
+					return render(request,'Order/add_order_detail_xl.html',dataset)
+					
+		dataset = dict()
+		form = AddOrderdetailsxl()
+		dataset['form'] = form
+		dataset['title'] = 'THEM XE CHAY DON HANG'
+		return render(request,'Order/add_order_detail_xl.html',dataset)
+		
 def add_orderdetail(request):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')
@@ -238,11 +287,13 @@ def add_orderdetail(request):
 				idxe = request.POST.get('xeBon')
 				dhobj = get_object_or_404(Donhang, id=iddh)
 				xeobj = get_object_or_404(XeBon,id=idxe)
-				
-				if dhobj.trangThai == 'xl':
+				print(xeobj.trangThaiXe)
+				if dhobj.trangThai == 'xl' and xeobj.trangThaiXe == 'R' or dhobj.trangThai == 'dgh' and xeobj.trangThaiXe == 'R':
 					instance.donHang = dhobj
 					instance.xeBon = xeobj
 					instance.save()
+					xeobj.trangThaiXe = 'B'
+					xeobj.save()
 					messages.success(request,'orderdetail Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
 					return redirect('Quanly:add_orderdetail')
 				else:
@@ -263,17 +314,25 @@ def edit_orderdetail(request, id):
 			form = AddOrderdetails(data = request.POST,instance = order)
 			if form.is_valid():
 				instance = form.save(commit = False)
+				
 				iddh = request.POST.get('donHang')
 				idxe = request.POST.get('xeBon')
+				
 				dhobj = get_object_or_404(Donhang, id=iddh)
 				xeobj = get_object_or_404(XeBon,id=idxe)
-				instance.donHang = dhobj
-				instance.xeBon = xeobj
-				instance.save()
+				
+				if dhobj.trangThai == 'xl' and xeobj.trangThaiXe == 'R' or dhobj.trangThai == 'dgh' and xeobj.trangThaiXe == 'R':
+					instance.donHang = dhobj
+					instance.xeBon = xeobj
+					xeobj.trangThaiXe = 'B'
+					instance.save()
+				else:
+					messages.error(request,'Error editing orderdetail ',extra_tags = 'alert alert-warning alert-dismissible show')
+					return redirect('Quanly:orderdetail')
 				messages.success(request,'orderdetail Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
 				return redirect('Quanly:add_orderdetail')
 		dataset = dict()
-		form = AddOrderdetails(data = request.POST,instance= order)
+		form = AddOrderdetails(request.POST or None,instance= order)
 		dataset['form'] = form
 		dataset['title'] = 'SUA XE CHAY DON HANG'
 		return render(request,'Order/add_order_detail.html',dataset)

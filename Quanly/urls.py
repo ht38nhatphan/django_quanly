@@ -24,9 +24,9 @@ urlpatterns = [
     path('qlkh/view_order_detail/<int:id>', views.view_Order_detail,name='view_order_detail'),
     #------------------------------------orderdetail------------------------------------
     path('add_orderdetail/',views.add_orderdetail,name='add_orderdetail'),
-    path('order/edit_orderdetail/<int:id>/', views.edit_orderdetail,name='edit_orderdetail'),
-    path('qlkh/delete_order/<int:id>/', views.delete_orderdetails, name='delete_orderdetail'),
-    
+    path('orderdetail/edit_orderdetail/<int:id>/', views.edit_orderdetail,name='edit_orderdetail'),
+    path('orderdetail/delete_orderdetails/<int:id>/', views.delete_orderdetails, name='delete_orderdetail'),
+    path('orderdetail/add_orderdetail_xl/<int:id>/', views.add_orderdetailxl,name='add_orderdetailxl'),
     path('Shift/',views.Shift,name='Shift'),
 
     path('Addshift/',views.add_shift,name='Addshift'),
