@@ -271,12 +271,12 @@ def edit_orderdetail(request, id):
 				instance.xeBon = xeobj
 				instance.save()
 				messages.success(request,'orderdetail Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
-				return redirect('Quanly:order_detail')
+				return redirect('Quanly:add_orderdetail')
 		dataset = dict()
 		form = AddOrderdetails(data = request.POST,instance= order)
 		dataset['form'] = form
 		dataset['title'] = 'SUA XE CHAY DON HANG'
-		return render(request,'Order/order_details.html')
+		return render(request,'Order/add_orderdetail.html',dataset)
 def delete_orderdetails(request,id):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')
