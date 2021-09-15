@@ -101,6 +101,7 @@ class Donhang(models.Model):
     ngayTao = models.DateTimeField(auto_now_add=True)
     ngayDo = models.DateTimeField()
     trangThai = models.CharField(max_length=30, choices=TRANG_THAI )
+    Xe = models.ManyToManyField(XeBon, through='ChiTietDonHang')
     object = models.Manager()
     nvBanhang = NhanVienQlyDh()
     QLTramTron = NhanVienQlyTramTron()
@@ -115,3 +116,9 @@ class Donhang(models.Model):
 # class QuanLyDonHang (models.Model):
 #     donHang = models.ForeignKey(Donhang, on_delete=models.CASCADE) 
 #     nhanVien = models.ForeignKey(NhanVien)
+class ChiTietDonHang (models.Model):
+    donHang = models.ForeignKey(Donhang, on_delete=models.CASCADE) 
+    xeBon = models.ForeignKey(XeBon,on_delete=models.CASCADE)
+    class Meta:
+        unique_together = [['donHang', 'xeBon']]
+        
