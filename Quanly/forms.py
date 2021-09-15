@@ -6,7 +6,7 @@ from django.template.defaulttags import widthratio
 from django import forms
 import datetime
 from django.forms import DateTimeField
-from .models import CaLamviec, Donhang, KhachHang, NhanVien, XeBon
+from .models import *
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import Group 
@@ -121,4 +121,26 @@ class AddShift(forms.ModelForm):
 class AddCar(forms.ModelForm):
 	class Meta:
 		model = XeBon
+		fields = '__all__'
+
+
+
+#-------------------------------material--------------------------------
+class AddMaterial(forms.ModelForm):
+	class Meta:
+		model = VatLieu
+		fields = '__all__'
+
+class AddStation(forms.ModelForm):
+	class Meta:
+		model = TramTron
+		fields = '__all__'
+
+class AddConcrete(forms.ModelForm):
+	class Meta:
+		model = MacBetong
+		fields = ['TenMac','DoSut','Gia']
+class AddConcretedetail(forms.ModelForm):
+	class Meta:
+		model = ChiTietBeTong
 		fields = '__all__'

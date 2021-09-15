@@ -1,0 +1,49 @@
+
+{% extends 'base.html' %}
+{% load auth_extras %}
+{% block content %}
+<div class="content-body btn-page">
+
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-lg-12">
+                <div class="card">
+                <section class="col-lg-12 col-md-12 col-sm-12 text-right">
+                <a href="{% url 'Quanly:Concrete' %}"> back </a>
+            </section>
+                    <div class="card-header">
+                        <h4 class="card-title">{{title}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered verticle-middle table-responsive-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ten Vat Lieu</th>
+                                        <th scope="col">Khoi Luong</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for ct in CT %}
+                                    <tr>
+                                        <td>
+                                           {{ct.vatlieu}}
+                                        </td>
+                                        <td>
+                                           {{ct.KhoiLuong}}
+                                        </td>
+                                        
+                                    </tr>
+                                    {% endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

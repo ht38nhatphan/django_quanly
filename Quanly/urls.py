@@ -33,6 +33,25 @@ urlpatterns = [
      path('daskboard/', views.Daskboard, name = 'dask'),
 #     path('savekh/', views.saveCustomer, name='savecustomer'),
 #    order
-    
-
+    # -------------------- material --------------------------------------------
+    path('Matirial/', views.Material,name='Material'),
+    path('add_material/', views.add_material,name='add_material'),
+    path('Matirial/edit_material/<int:id>', views.edit_material,name='edit_material'),
+    path('Matirial/delete_material/<int:id>',views.delete_material,name='delete_material'),
+    #------------------------Concrete --------------------------------------------------------
+    path('Concrete/', views.Concrete,name='Concrete'),
+    path('add_concrete/', views.add_concrete,name='add_concrete'),
+    path('Concrete/view_concret_detail/<int:id>', views.view_concrete_detail,name='view_concrete_detail'),
+    path('Concrete/edit_concrete/<int:id>', views.edit_concrete,name='edit_concrete'),
+    path('Concrete/delete_concrete/<int:id>',views.delete_concrete,name='delete_concrete'),
+    #--------------------------Station----------------------------------------------
+    path('Station/', views.Station,name='Station'),
+    path('add_station/', views.add_station,name='add_station'),
+    path('Station/edit_Station/<int:id>', views.edit_station,name='edit_station'),
+    path('Station/delete_station/<int:id>',views.delete_station,name='delete_station'),
+    #--------------------------Concrete_detail----------------------------------------------
+    path('Concrete_detail/', views.Concrete_detail,name='Concrete_detail'),
+    path('add_concrete_detail/', views.add_concrete_detail,name='add_concrete_detail'),
+    path('Concrete_detail/edit_concrete_detail/<int:id>', views.edit_concrete_detail,name='edit_concrete_detail'),
+    path('Concrete_detail/delete_concrete_detail/<int:id>',views.delete_concrete_detail,name='delete_concrete_detail'),
 ]

@@ -1,0 +1,60 @@
+
+{% extends 'base.html' %}
+{% load auth_extras %}
+{% block content %}
+<div class="content-body btn-page">
+    <div class="container-fluid">
+        <div class="row page-titles mx-0">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">{{title}}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered verticle-middle table-responsive-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ten Mac</th>
+                                        <th scope="col">Vat lieu</th>
+                                        <th scope="col">Khoi Luong</th>
+                                    
+                                        <th scope="col">Action</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for ct in CTVT %}
+                                    <tr>
+                                        <td>{{ct.Mac}}</td>
+                                        <td>
+                                           {{ct.vatlieu}}
+                                        </td>
+                                        <td>
+                                           {{ct.KhoiLuong}}
+                                        </td>
+                                       
+                                        <td>
+                                            <span>
+                                                <a href="{% url 'Quanly:edit_concrete_detail' ct.id %}" class="mr-4" data-toggle="tooltip"
+                                                    data-placement="top" title="Edit"><i
+                                                        class="fa fa-pencil color-muted"></i> </a>
+                                                <a href="{% url 'Quanly:delete_concrete_detail' ct.id %}" data-toggle="tooltip"
+                                                    data-placement="top" title="Close"><i
+                                                        class="fa fa-close color-danger"></i></a>
+                                            </span>
+                                        </td>
+                                         
+                                    </tr>
+                                    {% endfor%}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

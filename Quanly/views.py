@@ -475,3 +475,237 @@ def delete_shift(request,id):
 	else:
 		get_object_or_404(CaLamviec, id = id).delete()
 		return redirect('Quanly:Shift')
+
+#----------------------------------------------MATERIAL-------------------------------------
+def Material(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		data = { 'V': VatLieu.objects.all(),'title' : 'QUAN LY VAT LIEU'}
+		return render(request, 'Material/material.html',data)
+
+
+def add_material(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		if request.method == 'POST':
+			form = AddMaterial(data = request.POST)
+			if form.is_valid():
+				form.save()
+				messages.success(request,'Material Successfully ',extra_tags = 'alert alert-success alert-dismissible show')
+				return redirect('Quanly:add_material')
+			else:
+				messages.error(request,'Error Creating Material ',extra_tags = 'alert alert-warning alert-dismissible show')
+				return redirect('Quanly:add_material')
+		dataset = dict()
+		form = AddMaterial()
+		dataset['form'] = form
+		dataset['title'] = 'THEM MOI VAT LIEU'
+		return render(request,'Material/add_material.html',dataset)
+def edit_material(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		material = get_object_or_404(VatLieu,id=id)
+		if request.method == 'POST':
+			form = AddMaterial(data = request.POST,instance=material)
+			if form.is_valid():
+				instance = form.save(commit = False)
+				instance.TenVatLieu = request.POST.get('TenVatLieu')
+				instance.DonVi = request.POST.get('DonVi')
+				instance.save()
+				
+				return redirect('Quanly:Material')
+			else:
+				
+				return redirect('Quanly:Material')
+		dataset = dict()
+		form = AddMaterial(request.POST or None,instance=material)
+		dataset['form'] = form
+		dataset['title'] = 'SUA VAT LIEU'
+		return render(request,'Material/add_material.html',dataset)
+def delete_material(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		get_object_or_404(VatLieu,id=id).delete()
+		return redirect('Quanly:Material')
+		
+#-----------------------------------------Concrete ------------------------------------
+def Concrete(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		data = {'MAC': MacBetong.objects.all(),'title' : 'QUAN LY MAC'}
+		return render(request, 'Concrete_grade/concrete.html',data)
+def view_concrete_detail(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		concrete = get_object_or_404(MacBetong,id=id)
+		CT = ChiTietBeTong.objects.filter(Mac = concrete)
+		data = {'CT':CT,'title':'Chi Tiet Mac '}
+		return render(request, 'Concrete_grade/view_concrete_detail.html',data)
+def add_concrete(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		if request.method == 'POST':
+			form = AddConcrete(data = request.POST)
+			if form.is_valid():
+				form.save()
+				messages.success(request,'Concrete Successfully ',extra_tags = 'alert alert-success alert-dismissible show')
+				return redirect('Quanly:add_concrete')
+			else:
+				messages.error(request,'Error Creating concrete ',extra_tags = 'alert alert-warning alert-dismissible show')
+				return redirect('Quanly:add_concrete')
+		dataset = dict()
+		form = AddConcrete()
+		dataset['form'] = form
+		dataset['title'] = 'THEM MOI MAC'
+		return render(request,'Concrete_grade/add_concrete.html',dataset)
+def edit_concrete(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		concrete = get_object_or_404(MacBetong,id=id)
+		if request.method == 'POST':
+			form = AddConcrete(data = request.POST,instance = concrete)
+			if form.is_valid():
+				instance = form.save(commit = False)
+				instance.TenMac = request.POST.get('TenMac')
+				instance.DoSut = request.POST.get('DoSut')
+				instance.Gia = request.POST.get('Gia')
+				instance.save()
+				return redirect('Quanly:Concrete')
+		dataset = dict()
+		form = AddConcrete(request.POST or None,instance=concrete)
+		dataset['form'] = form
+		dataset['title'] = 'SUA MAC BE TONG'
+		return render(request,'Concrete_grade/add_concrete.html',dataset)	
+def delete_concrete(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		get_object_or_404(MacBetong,id=id).delete()
+		return redirect('Quanly:Concrete')
+
+# -----------------------------------Station---------------------
+def Station(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		data = {'Tram': TramTron.objects.all(),'title' :'QUAN LY TRAM TRON'}
+		return render(request, 'Station/station.html',data)
+
+def add_station(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		if request.method == 'POST':
+			form = AddStation(data = request.POST)
+			if form.is_valid():
+				form.save()
+				messages.success(request,'Station Successfully ',extra_tags = 'alert alert-success alert-dismissible show')
+				return redirect('Quanly:add_station')
+			else:
+				messages.error(request,'Error Creating station ',extra_tags = 'alert alert-warning alert-dismissible show')
+				return redirect('Quanly:add_station')
+		dataset = dict()
+		form = AddStation()
+		dataset['form'] = form
+		dataset['title'] = 'THEM MOI TRAM TRON'
+		return render(request,'Station/add_station.html',dataset)
+
+
+def edit_station(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		station = get_object_or_404(TramTron,id=id)
+		if request.method == 'POST':
+			form = AddStation(data = request.POST,instance = station)
+			if form.is_valid():
+				instance = form.save(commit = False)
+				instance.tenTramTron = request.POST.get('tenTramTron')
+				instance.dungTich = request.POST.get('dungTich')
+				instance.save()
+				messages.success(request,'Station edit Successfully ',extra_tags = 'alert alert-success alert-dismissible show')
+				return redirect('Quanly:Station')
+			else:
+				messages.error(request,'Error Creating station ',extra_tags = 'alert alert-warning alert-dismissible show')
+				return redirect('Quanly:add_station')
+		dataset = dict()
+		form = AddStation(request.POST or None,instance=station)
+		dataset['form'] = form
+		dataset['title'] = 'SUA TRAM TRON'
+		return render(request,'Station/add_station.html',dataset)
+
+
+def delete_station(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		get_object_or_404(TramTron, id = id).delete()
+		return redirect('Quanly:Station')
+
+# -------------------------------Concrete_detail-------------------------------------
+def Concrete_detail(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		data = {'CTVT': ChiTietBeTong.objects.all(),'title' :'QUAN LY CHI TIET VAT TU'}
+		return render(request, 'Concrete_details/concrete_details.html',data)
+def add_concrete_detail(request):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		if request.method == 'POST':
+			form = AddConcretedetail(data = request.POST)
+			if form.is_valid():
+				form.save()
+				messages.success(request,'concrete_detail Successfully ',extra_tags = 'alert alert-success alert-dismissible show')
+				return redirect('Quanly:add_concrete_detail')
+			else:
+				messages.error(request,'Error Creating concrete_detail ',extra_tags = 'alert alert-warning alert-dismissible show')
+				return redirect('Quanly:add_concrete_detail')
+		dataset = dict()
+		form = AddConcretedetail()
+		dataset['form'] = form
+		dataset['title'] = 'THEM MOI CHI TIET SAN PHAM'
+		return render(request,'Concrete_details/add_concrete_details.html',dataset)
+def edit_concrete_detail(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		concrete_detail = get_object_or_404(ChiTietBeTong,id=id)
+		if request.method == 'POST':
+			form = AddConcretedetail(data = request.POST,instance = concrete_detail)
+			if form.is_valid():
+				instance = form.save(commit = False)
+				idvatlieu = request.POST.get('vatlieu')
+				idmac = request.POST.get('Mac')
+				macobj = get_object_or_404(MacBetong,id=idmac)
+				vatlieuobj = get_object_or_404(VatLieu,id = idvatlieu)
+				instance.Mac = macobj
+				instance.vatlieu = vatlieuobj
+				instance.KhoiLuong = request.POST.get('KhoiLuong')
+				instance.save()
+				return redirect('Quanly:Concrete_detail')
+			else:
+				return redirect('Quanly:Concrete_detail')
+		dataset = dict()
+		form = AddConcretedetail(request.POST or None,instance = concrete_detail)
+		dataset['form'] = form
+		dataset['title'] = 'SUA CHI TIET MAC'
+		return render(request,'Concrete_details/add_concrete_details.html',dataset)
+def delete_concrete_detail (request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		get_object_or_404(ChiTietBeTong, id = id).delete()
+		return redirect('Quanly:Concrete_detail')
+
+
+
