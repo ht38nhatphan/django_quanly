@@ -16,9 +16,11 @@ urlpatterns = [
     path('od/', views.order, name='order'),
     path('qlkh/<int:id>/', views.editcustomer, name='edit_customer'), 
     path('qlkh/de/<int:id>/', views.deletecustomer, name='delete_customer'),
+
     path('order/',views.add_oder,name='add_order'),
     path('order/edit_order/<int:id>/', views.edit_order, name='edit_order'),
     path('qlkh/delete_order/<int:id>/', views.delete_order, name='delete_order'),
+    path('qlkh/view_order_detail/<int:id>', views.view_Order_detail,name='view_order_detail'),
     
     path('Shift/',views.Shift,name='Shift'),
 

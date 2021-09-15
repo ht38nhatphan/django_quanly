@@ -214,6 +214,16 @@ def edit_order(request,id):
 		dataset['form'] = form
 		dataset['title'] = 'CHINH SUA DON HANG'
 		return render(request,'Order/addOrder.html',dataset)
+
+
+def view_Order_detail(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	else:
+		orderID = get_object_or_404(Donhang, id=id)
+		CT = ChiTietDonHang.objects.filter(donHang = orderID)
+		data = {'CT':CT ,'title':'Chi Tiet Xe don hang '}
+		return render(request, 'Order/view_order_detail.html',data)
 #------------------------------------------------account-----------------------------------------
 
 # login
@@ -657,6 +667,7 @@ def Concrete_detail(request):
 	else:
 		data = {'CTVT': ChiTietBeTong.objects.all(),'title' :'QUAN LY CHI TIET VAT TU'}
 		return render(request, 'Concrete_details/concrete_details.html',data)
+		# them chi tiet be tong
 def add_concrete_detail(request):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')
@@ -675,6 +686,7 @@ def add_concrete_detail(request):
 		dataset['form'] = form
 		dataset['title'] = 'THEM MOI CHI TIET SAN PHAM'
 		return render(request,'Concrete_details/add_concrete_details.html',dataset)
+	# sua chi tiet be tong
 def edit_concrete_detail(request,id):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')

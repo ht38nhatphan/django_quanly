@@ -45,14 +45,15 @@
                                         </td>
                                         <td>{{dh.soKhoi}}
                                         </td>
-                                       
-                                        
-                                        
+                                    
                                         <td>{{dh.ngayDo}}</td>
 
                                         <td>{{dh.get_trangThai_display}}</td>
                                         <td>
                                             <span>
+                                                <a href="{% url 'Quanly:view_order_detail' dh.id %}" data-toggle="tooltip"
+                                                    data-placement="top" title="view"><i
+                                                        class="fa fa-eye color-muted"></i> </a>
                                                 <a href="{% url 'Quanly:edit_order' dh.id%}" class="mr-4" data-toggle="tooltip"
                                                     data-placement="top" title="Edit"><i
                                                         class="fa fa-pencil color-muted"></i> </a>
@@ -109,6 +110,9 @@
                                                 <td>{{dh.get_trangThai_display}}</td>
                                                 <td>
                                                     <span>
+                                                        <a href="{% url 'Quanly:view_order_detail' dh.id %}" data-toggle="tooltip"
+                                                        data-placement="top" title="view"><i
+                                                            class="fa fa-eye color-muted"></i> </a>
                                                         <a href="{% url 'Quanly:edit_order' dh.id%}" class="mr-4" data-toggle="tooltip"
                                                             data-placement="top" title="Edit"><i
                                                                 class="fa fa-pencil color-muted"></i> </a>
