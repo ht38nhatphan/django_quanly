@@ -162,7 +162,9 @@
                         
                     {% endif %}     
                     <li><a href="/od">Thong tin don hang</a></li>
-                    <li><a href="/order_detail">Chi tiet xe don hang</a></li></ul>  
+                    <li><a href="/order_detail">Chi tiet xe don hang</a></li>
+                    <li><a href="/add_orderdetail">them xe don hang</a></li>
+                    </ul>
 
                 </li>
                 {% if request.user.is_superuser or not request.user|has_group:"Quản lý trạm trộn"%}
@@ -203,7 +205,7 @@
                 <li class="nav-label">TRAM TRON</li>
                   <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                     class="icon icon-webpage"></i><span class="nav-text">Quan ly Mac</span></a>  
-                    <ul aria-expanded="false">
+                    <ul aria-expanded="false">  
                         <li><a href="/Concrete">Thong tin mac</a></li></ul>   
                 </li>
                 {% endif %}

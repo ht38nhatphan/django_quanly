@@ -59,7 +59,7 @@ label {
                 <section class="col-lg-12 col-md-12 col-sm-12">
                     <form action="" method="POST" enctype="multipart/form-data">
                         {% csrf_token %} {{form | crispy }}
-                        {% if title == 'TAO DON HANG' %}
+                        {% if title == 'THEM XE CHAY DON HANG' %}
                         <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
                         {% else %}
                         <button type="submit" id = 'edit' class="btn btn-primary btn-lg btn-block">Submit</button>

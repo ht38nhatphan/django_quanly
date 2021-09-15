@@ -225,16 +225,24 @@ def edit_order(request,id):
 
 #------------------------------------order detail----------------------------------------------------
 
-def add_orderdetail(request,id):
+def add_orderdetail(request):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')
 	else:
-		order = get_object_or_404(Donhang,id=id)
+		
 		if request.method == 'POST':
 			form = AddOrderdetails(request.POST or None)
 			if form.is_valid():
-				if order.trangThai == 'xl':
-					form.save()
+				instance = form.save(commit = False)
+				iddh = request.POST.get('donHang')
+				idxe = request.POST.get('xeBon')
+				dhobj = get_object_or_404(Donhang, id=iddh)
+				xeobj = get_object_or_404(XeBon,id=idxe)
+				
+				if dhobj.trangThai == 'xl':
+					instance.donHang = dhobj
+					instance.xeBon = xeobj
+					instance.save()
 					messages.success(request,'orderdetail Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
 					return redirect('Quanly:add_orderdetail')
 				else:
@@ -263,18 +271,18 @@ def edit_orderdetail(request, id):
 				instance.xeBon = xeobj
 				instance.save()
 				messages.success(request,'orderdetail Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
-				return redirect('Quanly:add_order')
+				return redirect('Quanly:order_detail')
 		dataset = dict()
 		form = AddOrderdetails(data = request.POST,instance= order)
 		dataset['form'] = form
 		dataset['title'] = 'SUA XE CHAY DON HANG'
-		return render(request,'Order/order.html')
+		return render(request,'Order/order_details.html')
 def delete_orderdetails(request,id):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')
 	else:
 		get_object_or_404(ChiTietDonHang,id=id).delete()
-		return redirect('Quanly:order')
+		return redirect('Quanly:order_detail')
 
 
 
