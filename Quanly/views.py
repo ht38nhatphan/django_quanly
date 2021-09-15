@@ -276,7 +276,7 @@ def edit_orderdetail(request, id):
 		form = AddOrderdetails(data = request.POST,instance= order)
 		dataset['form'] = form
 		dataset['title'] = 'SUA XE CHAY DON HANG'
-		return render(request,'Order/add_orderdetail.html',dataset)
+		return render(request,'Order/add_order_detail.html',dataset)
 def delete_orderdetails(request,id):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')
@@ -295,6 +295,31 @@ def order_details(request):
 		data = {'CTDH': ChiTietDonHang.objects.all(),'title' :'QUAN LY CHI TIET DON HANG'}
 		return render(request, 'Order/order_details.html', data)
 
+# def edit_order_detail(request,id):
+# 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+# 		return redirect('/')
+# 	else:
+# 		order_detail = get_object_or_404(ChiTietDonHang,id=id)
+# 		if request.method == 'POST':
+# 			form = AddConcretedetail(data = request.POST,instance = order_detail)
+# 			if form.is_valid():
+# 				instance = form.save(commit = False)
+# 				iddonhang = request.POST.get('donHang')
+# 				idxe = request.POST.get('xeBon')
+# 				dhobj = get_object_or_404(MacBetong,id=iddonhang)
+# 				xeobj = get_object_or_404(VatLieu,id = idxe)
+# 				instance.Mac = dhobj
+# 				instance.vatlieu = xeobj
+# 				instance.save()
+# 				return redirect('Quanly:order_detail')
+# 			else:
+# 				return redirect('Quanly:order_detail')
+# 		dataset = dict()
+# 		form = AddOrderdetail(request.POST or None,instance = order_detail)
+# 		dataset['form'] = form
+# 		dataset['title'] = 'SUA CHI TIET Xe don hang'
+# 		return render(request,'Concrete_details/add_concrete_details.html',dataset)
+# xem xe van chuyen theo don hang
 def view_Order_detail(request,id):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')
