@@ -21,6 +21,7 @@
                                         <th scope="col">Ten xe</th>
                                         <th scope="col">Bien so</th>
                                         <th scope="col">Nhan vien Phu trach</th>
+                                        <th scope="col">Trang thai xe</th>
                                         <th scope="col">Action</th>
                                         
                                     </tr>
@@ -33,6 +34,7 @@
                                            {{xe.BienSo}}
                                         </td>
                                         <td>{{xe.nhanVien.HoTen}}</td>
+                                        <td>{{xe.get_trangThaiXe_display}}</td>
                                          <td>
                                             <span>
                                                 <a href="{% url 'Quanly:edit_car' xe.id %}" class="mr-4" data-toggle="tooltip"
