@@ -12,4 +12,3 @@ admin.site.register(MacBetong)
 admin.site.register(Donhang)
 admin.site.register(TramTron)
 admin.site.register(ChiTietDonHang)
-
