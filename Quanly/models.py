@@ -121,9 +121,5 @@ class ChiTietDonHang (models.Model):
     donHang = models.ForeignKey(Donhang, on_delete=models.CASCADE) 
     xeBon = models.ForeignKey(XeBon,on_delete=models.CASCADE)
     class Meta:
-<<<<<<< HEAD
         unique_together = [['donHang', 'xeBon']]
-=======
-        unique_together = [['donHang', 'xeBon']]
-        
->>>>>>> 51c67d2d04732a07ee54e1696a8f4b1540728113
+
