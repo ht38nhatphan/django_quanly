@@ -147,10 +147,12 @@ def add_oder(request):
 				# instance.ngayDo = None
 				
 				instance.trangThai = request.POST.get('trangThai')
+				
 				#check status in tt 
 				if request.POST.get('trangThai') == 'xl' and not check or request.POST.get('trangThai') == 'dgh' and not check:
 					messages.error(request,'Error Creating Customer ',extra_tags = 'alert alert-warning alert-dismissible show')
 					return redirect('Quanly:add_order')
+				
 				else:
 					instance.save()
 				messages.success(request,'order Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
@@ -169,12 +171,13 @@ def edit_order(request,id):
 	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
 		return redirect('/')
 	else:
+		
 		order = get_object_or_404(Donhang,id=id)
 		group = Group.objects.get(name = "Quản lý trạm trộn")
 		check = True if group in request.user.groups.all() else False
 		group1 = Group.objects.get(name = "Bán hàng")
 		check1 = True if group1 in request.user.groups.all() else False
-
+		dhcu = order.trangThai
 		if request.method == 'POST':
 			form = AddOrderdh(data = request.POST,instance = order) if check1 == True else AddOrdertt(data = request.POST,instance = order) if check==True else AddOrder(data = request.POST,instance = order)
 			if form.is_valid():
@@ -198,9 +201,14 @@ def edit_order(request,id):
 				# 	instance.save()
 				# 	return redirect('Quanly:order')
 				# la qun ly tram tron thi cho sua ngay do
-				if check:
+				
+				if (request.POST.get('trangThai') == 'cxl' and check and dhcu== 'dgh') or (request.POST.get('trangThai') == 'xl' and check and dhcu== 'cxl') or (request.POST.get('trangThai') == 'dgh' and check and dhcu== 'cxl') :
+					messages.error(request,'Error editing status ',extra_tags = 'alert alert-warning alert-dismissible show')
+					return redirect('Quanly:add_order')
+				elif check:
 					instance.save()
 					return redirect('Quanly:order')
+				
 				else:
 					instance.save()
 					return redirect('Quanly:order')

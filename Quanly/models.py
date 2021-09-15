@@ -80,7 +80,7 @@ class TramTron(models.Model):
 # phan quyen nhan vien tram tron
 class NhanVienQlyTramTron(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(trangThai = 'xl') or super().get_queryset().filter(trangThai = 'dgh')
+        return super().get_queryset().filter(trangThai = 'cxl') or super().get_queryset().filter(trangThai = 'dgh')
 
 class NhanVienQlyDh(models.Manager):
     def get_queryset(self):
@@ -105,7 +105,7 @@ class Donhang(models.Model):
     object = models.Manager()
     nvBanhang = NhanVienQlyDh()
     QLTramTron = NhanVienQlyTramTron()
-    Xe = models.ManyToManyField(XeBon, through='ChiTietDonHang')
+    
     @property
     def diff_d_count(self):
         dt=0

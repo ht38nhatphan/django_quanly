@@ -142,6 +142,7 @@
     <div class="quixnav">
         <div class="quixnav-scroll">
             <ul class="metismenu" id="menu">
+                {% if request.user.is_superuser%}
                 <li class="nav-label first">Main Menu</li>
                 <!-- <li><a href="index.html"><i class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
                 </li> -->
@@ -151,6 +152,7 @@
 <!--             
                         <li><a href="/daskboard">Dashboard 2</a></li></ul> -->
                 </li>
+                {% endif %} 
                 <li class="nav-label">Don Hang</li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                     class="icon icon-e-reader"></i><span class="nav-text">Don hang</span></a>  
@@ -168,8 +170,8 @@
                         <li><a href="/addkh ">Them khach hang</a></li>
                         <li><a href="/qlkh">Thong tin khach hang</a></li></ul>       
                 </li>
-               
-              
+               {% endif %}
+                {% if request.user.is_superuser or request.user|has_group:"Quản lý trạm trộn"%}
                 <li class="nav-label">XE CHO</li>
                   <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                     class="icon icon-single-04"></i><span class="nav-text">Nhan vien</span></a>  
@@ -193,6 +195,17 @@
                         <li><a href="/Car">Thong tin xe bon</a></li></ul>   
                             
                 </li>
+                
+                {% endif %}
+                {% if  request.user|has_group:"Quản lý trạm trộn"%}
+                <li class="nav-label">TRAM TRON</li>
+                  <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                    class="icon icon-webpage"></i><span class="nav-text">Quan ly Mac</span></a>  
+                    <ul aria-expanded="false">
+                        <li><a href="/Concrete">Thong tin mac</a></li></ul>   
+                </li>
+                {% endif %}
+                {% if request.user.is_superuser or not request.user|has_group:"Quản lý trạm trộn"%}
                 <li class="nav-label">TRAM TRON</li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                     class="icon icon-layers-3"></i><span class="nav-text">Quan ly vat lieu</span></a>  
@@ -206,14 +219,12 @@
                     <ul aria-expanded="false">
                         <li><a href="/add_concrete">Them moi mac </a></li>
                         <li><a href="/Concrete">Thong tin mac</a></li></ul>   
-                            
                 </li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                     class="icon icon-home"></i><span class="nav-text">Quan ly Tram Tron</span></a>  
                     <ul aria-expanded="false">
                         <li><a href="/add_station">Them moi tram tron </a></li>
                         <li><a href="/Station">Thong tin tram tron</a></li></ul>   
-                            
                 </li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
                     class="icon icon-e-reader"></i><span class="nav-text">Quan ly chi tiet mac</span></a>  
@@ -223,6 +234,8 @@
                             
                 </li>
                 {% endif %}
+
+                
 {% comment %} 
                 <li class="nav-label">Extra</li>
                 <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i

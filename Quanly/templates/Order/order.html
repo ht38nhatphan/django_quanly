@@ -65,7 +65,7 @@
                                     </tr>
                                     {% endfor%}
                                     {% elif request.user|has_group:"Bán hàng"%}
-                                        {% for dh in donhang1 %}
+                                        {% for dh in donhang2 %}
                                             <tr>
                                                 <td>{{dh.khachHang}}</td>
                                                 <td>
