@@ -23,7 +23,7 @@
                                         <th scope="col">Ten Xe</th>
                                         <th scope="col">Bien So</th>
                                         <th scope="col">Nhan vien</th>
-                                        
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -35,7 +35,16 @@
                                            {{xe.xeBon.BienSo}}
                                         </td>
                                         <td>{{xe.xeBon.nhanVien.HoTen}}</td>
-                                         
+                                        <td>
+                                            <span>                                             
+                                                <a href="{% url 'Quanly:edit_orderdetail' xe.id%}" class="mr-4" data-toggle="tooltip"
+                                                    data-placement="top" title="Edit"><i
+                                                        class="fa fa-pencil color-muted"></i> </a>
+                                                <a href="{% url 'Quanly:delete_orderdetail' xe.id %}"  data-toggle="tooltip"
+                                                    data-placement="top" title="Close"><i
+                                                        class="fa fa-close color-danger"></i></a>
+                                            </span>
+                                        </td>
                                     </tr>
                                     {% endfor%}
                                 </tbody>

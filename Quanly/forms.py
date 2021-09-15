@@ -136,3 +136,9 @@ class AddConcretedetail(forms.ModelForm):
 	class Meta:
 		model = ChiTietBeTong
 		fields = '__all__'
+
+
+class AddOrderdetails(forms.ModelForm):
+	class Meta:
+		model = ChiTietDonHang
+		fields = '__all__'
