@@ -1,9 +1,13 @@
+from django.conf.urls import url
+from QuanLyMAC import urls
 from django.urls import path
 from django.urls.resolvers import URLPattern
+# from .views import GeneratePDF
 from . import views
-
+# from .views import Generated
 app_name = 'Quanly'
 urlpatterns = [
+
     path('',views.login_view,name='login'),
     path('logout/',views.logout_view,name='logout'),
     path('home/', views.index, name='index'),   
@@ -61,4 +65,8 @@ urlpatterns = [
     path('add_concrete_detail/', views.add_concrete_detail,name='add_concrete_detail'),
     path('Concrete_detail/edit_concrete_detail/<int:id>', views.edit_concrete_detail,name='edit_concrete_detail'),
     path('Concrete_detail/delete_concrete_detail/<int:id>',views.delete_concrete_detail,name='delete_concrete_detail'),
+    #--------------------------Concrete_detail----------------------------------------------
+    path('Concrete_detail/pdf/<int:id>',views.printpdf,name='print'),
+    # url(r'^Concrete_detail/pdf/$',GeneratePDF.as_view()),
 ]
+

@@ -162,8 +162,11 @@
                         
                     {% endif %}     
                     <li><a href="/od">Thong tin don hang</a></li>
+                    {% if  request.user.is_superuser or request.user|has_group:"Quản lý trạm trộn"%}
                     <li><a href="/order_detail">Chi tiet xe don hang</a></li>
                     <li><a href="/add_orderdetail">them xe don hang</a></li>
+                    {% endif %}
+                    
                     </ul>
 
                 </li>

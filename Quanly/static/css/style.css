@@ -1886,6 +1886,7 @@ pre code {
     border-color: black;
     color: black;
     font-weight: bold;
+    text-align: center;
 }
 
 .table-bordered th,
@@ -23445,6 +23446,7 @@ button:focus {
     border-color: black;
     color: black;
     font-weight: bold;
+    text-align: center;
 }
 
 [data-theme-version="dark"] .table thead th {
@@ -27211,9 +27213,14 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
     color: #fff;
 }
 
-img{
+img {
     width: 100%;
     height: 100%;
 }
+
+a.print {
+    color: black;
+}
+
 
 /*# sourceMappingURL=style.css.map */

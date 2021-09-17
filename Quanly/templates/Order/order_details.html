@@ -24,6 +24,8 @@
                                         <th scope="col">Bien So</th>
                                         <th scope="col">Nhan vien</th>
                                         <th scope="col">Action</th>
+                                        <th scope="col"> IN PDF</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,15 +38,22 @@
                                         </td>
                                         <td>{{xe.xeBon.nhanVien.HoTen}}</td>
                                         <td>
-                                            <span>                                             
+                                            <span style="display:table;margin:0 auto;"> 
+                                                {% if request.user.is_superuser %}
                                                 <a href="{% url 'Quanly:edit_orderdetail' xe.id%}" class="mr-4" data-toggle="tooltip"
                                                     data-placement="top" title="Edit"><i
                                                         class="fa fa-pencil color-muted"></i> </a>
+                                                {% endif %}                                         
+                                                
                                                 <a href="{% url 'Quanly:delete_orderdetail' xe.id %}"  data-toggle="tooltip"
                                                     data-placement="top" title="Close"><i
                                                         class="fa fa-close color-danger"></i></a>
                                             </span>
                                         </td>
+                                        <td>
+                                         <button  style="display:table;margin:0 auto;" type="submit" > <a class = "print" href="{% url 'Quanly:print' xe.id %}">IN PDF</a></button>
+                                        </td>
+                                        
                                     </tr>
                                     {% endfor%}
                                 </tbody>

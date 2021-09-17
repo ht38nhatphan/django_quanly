@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+    <head>
+        {%load static%}
+        <title>Title</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            .title {
+                font-size: 22px;
+                font-weight: 100;
+              
+               padding: 10px 20px 0px 20px;  
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                padding: 10px 20px 0px 20px;
+                text-align: left !important;
+               
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                
+                color: #333; 
+                
+                background-color: #fff; 
+                
+            }
+            p.content {
+                
+                font-size: 17px;
+                font-weight: 100;
+                text-align: center;
+                color: #007cae;
+            }
+            h1{
+                
+                text-align: center;
+            }
+            td{
+                text-align:center;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <div class='header'>
+                <p class='title'>CONG TY TNHH MOT THANH VIEN
+                </p>
+            </div>
+            {% comment %} <div>
+            <p class='content'>sdt : 23123123<br/> dia chi :323123123 </p>
+            </div> {% endcomment %}
+             <hr class='hrItem' />
+        <div>
+        <div class='details'>
+            <h1>Phieu Giao Hang</h1>
+            Lai xe: {{ct_car.xeBon.nhanVien.HoTen}}<br/>
+            Xe: {{ct_car.xeBon.TenXe}}<br/>
+            Tram tron: {{ct_dh.tramTron.tenTramTron}} <br/>
+            Khach hang:{{ct_dh.khachHang.HoTen}} <br/>
+            Mac:  {{ct_dh.mac.TenMac}}<br/>
+            So khoi: {{ct_dh.soKhoi}} <br/>
+            Date: {{ct_dh.ngayDo|date:"M d, Y"}} <br/>
+            Tong Tien: {{ct_dh.Total}}  VND<br/>
+            
+            Chi Tiet Vat Lieu: <br/>
+            <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered verticle-middle table-responsive-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Ten Vat Lieu</th>
+                                        <th scope="col">Khoi Luong</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                     {% for ct in CT %}
+                                    <tr>
+                                        <td>
+                                           {{ct.vatlieu}}
+                                        </td>
+                                        <td>
+                                           {{ct.KhoiLuong}}
+                                        </td>
+                                        
+                                    </tr>
+                                    {% endfor%} 
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            {% comment %} <hr class='hrItem' /> {% endcomment %}
+        </div>
+        <div class="">
+        </div>
+    </div>
+
+    </body>
+    
+</html>

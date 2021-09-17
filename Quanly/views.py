@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group
 from django.shortcuts  import render, redirect,get_list_or_404,get_object_or_404
 from .models import *
 from django.contrib.auth import authenticate, login, logout
-from django.views.generic import DeleteView
+from django.views.generic import DeleteView,View
 from .forms import *
 from django.contrib import messages
 from django.contrib.auth.models import Group,User,UserManager
@@ -13,6 +13,39 @@ import datetime
 from django.db.models import F
 from django.db import connection
 from django.utils.dateparse import parse_date
+from .utils import render_to_pdf
+from django.template.loader import get_template
+#------------------------------ Create print pdf file ------------------------------
+def printpdf(request,id):
+	if not (request.user.is_authenticated or request.user.is_superuser or request.user.is_staff):
+		return redirect('/')
+	# template = get_template('printpft/print_pdf.html')
+	ct_car= get_object_or_404(ChiTietDonHang, id = id)
+	# ct_car_obj = ChiTietDonHang.objects.filter(ct_car)
+	ct_dh = get_object_or_404(Donhang,id = ct_car.donHang.id)
+	# ct_mac = get_object_or_404(Donhang,id = ct_car.donHang)
+	concrete = get_object_or_404(MacBetong,id=ct_dh.mac.id)
+	CT = ChiTietBeTong.objects.filter(Mac = concrete)
+	context = {
+	    'ct_car': ct_car,
+		'ct_dh' : ct_dh,
+		'CT' :CT
+	}
+
+	# html = template.render(context)
+	# return HttpResponse(html)
+	pdf = render_to_pdf('printpft/print_pdf.html', context)
+	if pdf:
+	    response = HttpResponse(pdf, content_type='application/pdf')
+	    filename = "name_%s.pdf" %("12341231")
+	    content = "inline; filename=%s" %(filename)
+	    # download = request.GET.get("download")
+	    # if download:
+	    #     content = "attachment; filename='%s'" %(filename)
+	    response['Content-Disposition'] = content
+	    return response
+	return HttpResponse("Not found")
+        
 # Create your views here.
 #------------------------------------MAIN---------------------------
 def index(request):
@@ -228,7 +261,7 @@ def edit_order(request,id):
 					return redirect('Quanly:order')
 
 			else:
-				messages.error(request,'Error Creating Customer ',extra_tags = 'alert alert-warning alert-dismissible show')
+				messages.error(request,'Error status  ',extra_tags = 'alert alert-warning alert-dismissible show')
 				return redirect('Quanly:add_order')
 
 		dataset = dict()
@@ -258,7 +291,11 @@ def add_orderdetailxl(request,id):
 					instance.save()
 					
 					messages.success(request,'orderdetail Successfully Created ',extra_tags = 'alert alert-success alert-dismissible show')
-					return redirect('Quanly:orderdetail')
+					dataset = dict()
+					form = AddOrderdetailsxl()
+					dataset['form'] = form
+					dataset['title'] = 'THEM XE CHAY DON HANG'
+					return render(request,'Order/add_order_detail_xl.html',dataset)
 
 				else:
 					messages.error(request,'Error editing orderdetail ',extra_tags = 'alert alert-warning alert-dismissible show')

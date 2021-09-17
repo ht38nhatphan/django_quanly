@@ -1,0 +1,714 @@
+[
+{
+  "model": "Quanly.khachhang",
+  "pk": 1,
+  "fields": {
+    "HoTen": "a",
+    "SoDienThoai": "a",
+    "DiaChi": "a",
+    "SoCMT": "a"
+  }
+},
+{
+  "model": "Quanly.khachhang",
+  "pk": 2,
+  "fields": {
+    "HoTen": "b",
+    "SoDienThoai": "b",
+    "DiaChi": "b",
+    "SoCMT": "b"
+  }
+},
+{
+  "model": "Quanly.vatlieu",
+  "pk": 1,
+  "fields": {
+    "TenVatLieu": "Da",
+    "DonVi": "kg"
+  }
+},
+{
+  "model": "Quanly.vatlieu",
+  "pk": 2,
+  "fields": {
+    "TenVatLieu": "cat",
+    "DonVi": "kg"
+  }
+},
+{
+  "model": "Quanly.vatlieu",
+  "pk": 3,
+  "fields": {
+    "TenVatLieu": "xi mang",
+    "DonVi": "kg"
+  }
+},
+{
+  "model": "Quanly.macbetong",
+  "pk": 1,
+  "fields": {
+    "TenMac": "Mac 200",
+    "DoSut": 5,
+    "Gia": 800000
+  }
+},
+{
+  "model": "Quanly.macbetong",
+  "pk": 2,
+  "fields": {
+    "TenMac": "mac 250",
+    "DoSut": 2,
+    "Gia": 900000
+  }
+},
+{
+  "model": "Quanly.chitietbetong",
+  "pk": 2,
+  "fields": {
+    "Mac": 1,
+    "vatlieu": 2,
+    "KhoiLuong": 400
+  }
+},
+{
+  "model": "Quanly.congviec",
+  "pk": 1,
+  "fields": {
+    "TenCongViec": "Lai xe"
+  }
+},
+{
+  "model": "Quanly.congviec",
+  "pk": 2,
+  "fields": {
+    "TenCongViec": "Van hanh tram tron"
+  }
+},
+{
+  "model": "Quanly.nhanvien",
+  "pk": 1,
+  "fields": {
+    "HoTen": "AK",
+    "congViec": 1,
+    "SoDienThoai": "s",
+    "DiaChi": "s",
+    "SoCMT": "s"
+  }
+},
+{
+  "model": "Quanly.xebon",
+  "pk": 1,
+  "fields": {
+    "TenXe": "Xe1",
+    "BienSo": "31231",
+    "nhanVien": 1,
+    "trangThaiXe": "R"
+  }
+},
+{
+  "model": "Quanly.xebon",
+  "pk": 3,
+  "fields": {
+    "TenXe": "xe2",
+    "BienSo": "3123",
+    "nhanVien": 1,
+    "trangThaiXe": "B"
+  }
+},
+{
+  "model": "Quanly.xebon",
+  "pk": 4,
+  "fields": {
+    "TenXe": "x3",
+    "BienSo": "231",
+    "nhanVien": 1,
+    "trangThaiXe": "R"
+  }
+},
+{
+  "model": "Quanly.xebon",
+  "pk": 5,
+  "fields": {
+    "TenXe": "213",
+    "BienSo": "32",
+    "nhanVien": 1,
+    "trangThaiXe": "B"
+  }
+},
+{
+  "model": "Quanly.xebon",
+  "pk": 6,
+  "fields": {
+    "TenXe": "d1",
+    "BienSo": "33",
+    "nhanVien": 1,
+    "trangThaiXe": "B"
+  }
+},
+{
+  "model": "Quanly.tramtron",
+  "pk": 1,
+  "fields": {
+    "tenTramTron": "trạm 1",
+    "dungTich": "300"
+  }
+},
+{
+  "model": "Quanly.donhang",
+  "pk": 3,
+  "fields": {
+    "khachHang": 1,
+    "tramTron": 1,
+    "mac": 1,
+    "soKhoi": 32,
+    "tongGia": 0,
+    "ngayTao": "2021-09-15T15:02:56.822Z",
+    "ngayDo": "2021-09-20T00:00:00Z",
+    "trangThai": "dgh"
+  }
+},
+{
+  "model": "Quanly.donhang",
+  "pk": 6,
+  "fields": {
+    "khachHang": 2,
+    "tramTron": 1,
+    "mac": 1,
+    "soKhoi": 23,
+    "tongGia": 0,
+    "ngayTao": "2021-09-15T15:56:42.968Z",
+    "ngayDo": "2021-09-28T00:00:00Z",
+    "trangThai": "dgh"
+  }
+},
+{
+  "model": "Quanly.donhang",
+  "pk": 7,
+  "fields": {
+    "khachHang": 2,
+    "tramTron": 1,
+    "mac": 1,
+    "soKhoi": 32,
+    "tongGia": 0,
+    "ngayTao": "2021-09-15T16:19:42.616Z",
+    "ngayDo": "2021-09-29T00:00:00Z",
+    "trangThai": "dgh"
+  }
+},
+{
+  "model": "Quanly.donhang",
+  "pk": 8,
+  "fields": {
+    "khachHang": 1,
+    "tramTron": 1,
+    "mac": 1,
+    "soKhoi": 23,
+    "tongGia": 0,
+    "ngayTao": "2021-09-15T17:14:41.584Z",
+    "ngayDo": "2021-09-21T00:00:00Z",
+    "trangThai": "cxl"
+  }
+},
+{
+  "model": "Quanly.chitietdonhang",
+  "pk": 3,
+  "fields": {
+    "donHang": 3,
+    "xeBon": 1
+  }
+},
+{
+  "model": "Quanly.chitietdonhang",
+  "pk": 7,
+  "fields": {
+    "donHang": 3,
+    "xeBon": 4
+  }
+},
+{
+  "model": "Quanly.chitietdonhang",
+  "pk": 10,
+  "fields": {
+    "donHang": 7,
+    "xeBon": 6
+  }
+},
+{
+  "model": "Quanly.chitietdonhang",
+  "pk": 11,
+  "fields": {
+    "donHang": 7,
+    "xeBon": 1
+  }
+},
+{
+  "model": "Quanly.chitietdonhang",
+  "pk": 12,
+  "fields": {
+    "donHang": 6,
+    "xeBon": 1
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2021-09-15T09:19:04.894Z",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "1",
+    "object_repr": "a a",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2021-09-15T09:19:15.080Z",
+    "user": 1,
+    "content_type": 1,
+    "object_id": "2",
+    "object_repr": "b b",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2021-09-15T09:19:37.550Z",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "1",
+    "object_repr": "Da",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2021-09-15T09:19:43.477Z",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "2",
+    "object_repr": "cat",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2021-09-15T09:19:55.482Z",
+    "user": 1,
+    "content_type": 2,
+    "object_id": "3",
+    "object_repr": "xi mang",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2021-09-15T09:20:25.157Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "1",
+    "object_repr": "Mac 200",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2021-09-15T09:20:39.156Z",
+    "user": 1,
+    "content_type": 3,
+    "object_id": "2",
+    "object_repr": "mac 250",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2021-09-15T09:20:52.039Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "1",
+    "object_repr": "ChiTietBeTong object (1)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2021-09-15T09:20:59.742Z",
+    "user": 1,
+    "content_type": 4,
+    "object_id": "2",
+    "object_repr": "ChiTietBeTong object (2)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2021-09-15T09:21:57.700Z",
+    "user": 1,
+    "content_type": 5,
+    "object_id": "1",
+    "object_repr": "Lai xe",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2021-09-15T09:22:16.782Z",
+    "user": 1,
+    "content_type": 5,
+    "object_id": "2",
+    "object_repr": "Van hanh tram tron",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2021-09-15T09:22:55.002Z",
+    "user": 1,
+    "content_type": 6,
+    "object_id": "1",
+    "object_repr": "AK Lai xe",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2021-09-15T09:23:58.232Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "1",
+    "object_repr": "Bán h",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2021-09-15T09:24:07.745Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "1",
+    "object_repr": "Bán hàng",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2021-09-15T09:25:19.455Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "2",
+    "object_repr": "Quản lý trạm trộn",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2021-09-15T10:16:14.520Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "1",
+    "object_repr": "ChiTietDonHang object (1)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2021-09-15T10:34:19.062Z",
+    "user": 1,
+    "content_type": 15,
+    "object_id": "2",
+    "object_repr": "sa",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2021-09-15T10:34:41.877Z",
+    "user": 1,
+    "content_type": 15,
+    "object_id": "3",
+    "object_repr": "sa1",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2021-09-15T10:34:48.955Z",
+    "user": 1,
+    "content_type": 15,
+    "object_id": "3",
+    "object_repr": "sa1",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2021-09-15T10:34:55.900Z",
+    "user": 1,
+    "content_type": 15,
+    "object_id": "3",
+    "object_repr": "sa1",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\", \"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2021-09-15T10:35:07.302Z",
+    "user": 1,
+    "content_type": 15,
+    "object_id": "2",
+    "object_repr": "sa",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\", \"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2021-09-15T10:35:14.710Z",
+    "user": 1,
+    "content_type": 15,
+    "object_id": "3",
+    "object_repr": "sa1",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Groups\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2021-09-15T11:47:06.096Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "2",
+    "object_repr": "Donhang object (2)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"TrangThai\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2021-09-15T11:47:11.134Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "1",
+    "object_repr": "Donhang object (1)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"TrangThai\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2021-09-15T15:56:42.970Z",
+    "user": 1,
+    "content_type": 10,
+    "object_id": "6",
+    "object_repr": "DON HANG 6",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2021-09-15T15:56:55.392Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "8",
+    "object_repr": "ChiTietDonHang object (8)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2021-09-15T15:57:03.514Z",
+    "user": 1,
+    "content_type": 11,
+    "object_id": "8",
+    "object_repr": "ChiTietDonHang object (8)",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2021-09-15T17:06:09.394Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "2",
+    "object_repr": "Quản lý trạm trộn",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Permissions\"]}}]"
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "Bán hàng",
+    "permissions": [
+      37,
+      38,
+      39,
+      40
+    ]
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 2,
+  "fields": {
+    "name": "Quản lý trạm trộn",
+    "permissions": [
+      29,
+      30,
+      31,
+      32,
+      41,
+      42,
+      43,
+      44,
+      17,
+      18,
+      19,
+      20,
+      38,
+      40,
+      21,
+      22,
+      23,
+      24
+    ]
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$zerJXAa7o3tDpCBTGmo6bE$xL7gSw5lccW2UfUghO842Nva/Hi6qIxJkizSLMygSNk=",
+    "last_login": "2021-09-15T17:25:25.133Z",
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@gmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2021-09-15T09:14:44.539Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$JOOCFrTAnljshHSl1T5lZV$xG95PPWq3CcrPASnzo+R03+aIPoz1XAKtw/+eU8K600=",
+    "last_login": "2021-09-15T17:14:51.811Z",
+    "is_superuser": false,
+    "username": "sa",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2021-09-15T10:34:18Z",
+    "groups": [
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$D9Z5nR9yPXDZ9ppaNDYKFn$Zrt4vEDHCW/ZNNs+Qlm5RfIIxwl7RtIPg2VPC1Ac2+g=",
+    "last_login": "2021-09-15T17:14:29.473Z",
+    "is_superuser": false,
+    "username": "sa1",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2021-09-15T10:34:41Z",
+    "groups": [
+      1
+    ],
+    "user_permissions": []
+  }
+}
+]

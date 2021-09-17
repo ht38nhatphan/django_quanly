@@ -1,0 +1,4 @@
+#setting
+.settings.py
+#api
+.dump.json
