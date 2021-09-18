@@ -26,12 +26,15 @@ def printpdf(request,id):
 	# ct_mac = get_object_or_404(Donhang,id = ct_car.donHang)
 	concrete = get_object_or_404(MacBetong,id=ct_dh.mac.id)
 	CT = ChiTietBeTong.objects.filter(Mac = concrete)
+
+	# arr = ['Lai xe:','Xe:','Tram tron:','Khach hang:','Mac:','So khoi:','Date:']
 	context = {
 	    'ct_car': ct_car,
 		'ct_dh' : ct_dh,
-		'CT' :CT
+		'CT' :CT,
+		'user':request.user.username,
+		'bh': get_object_or_404(User,id=3)
 	}
-
 	# html = template.render(context)
 	# return HttpResponse(html)
 	pdf = render_to_pdf('printpft/print_pdf.html', context)

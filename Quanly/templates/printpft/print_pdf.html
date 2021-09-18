@@ -6,13 +6,19 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1">
-        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <style type="text/css">
             body {
                 font-weight: 200;
                 font-size: 14px;
             }
+            {% comment %} @page {
+            size: a5 portrait;
+            margin-top: 0;
+            margin-bottom: 0;
+             } {% endcomment %}
+          table {    -pdf-keep-in-frame-mode: shrink;}
             .header {
                 font-size: 20px;
                 font-weight: 100;
@@ -56,35 +62,85 @@
             td{
                 text-align:center;
             }
-            
+            td.ttname{
+                text-align:left;
+            }
         </style>
     </head>
     <body>
         <div class='wrapper'>
             <div class='header'>
-                <p class='title'>CONG TY TNHH MOT THANH VIEN
-                </p>
+                <p class='title'>CONG TY TNHH MOT THANH VIEN<br/>Dia chi: abcxyz<br/>Sdt: 01293923283   </p>
+                
             </div>
             {% comment %} <div>
             <p class='content'>sdt : 23123123<br/> dia chi :323123123 </p>
             </div> {% endcomment %}
+             <p style='margin-top:10px; font-size:12px; font-weight:litter;text-align:right;'>Tram tron: {{ct_dh.tramTron.tenTramTron}}<br/> Date: {{ct_dh.ngayDo|date:"M d, Y"}}</p>
              <hr class='hrItem' />
         <div>
         <div class='details'>
             <h1>Phieu Giao Hang</h1>
-            Lai xe: {{ct_car.xeBon.nhanVien.HoTen}}<br/>
-            Xe: {{ct_car.xeBon.TenXe}}<br/>
-            Tram tron: {{ct_dh.tramTron.tenTramTron}} <br/>
-            Khach hang:{{ct_dh.khachHang.HoTen}} <br/>
-            Mac:  {{ct_dh.mac.TenMac}}<br/>
-            So khoi: {{ct_dh.soKhoi}} <br/>
-            Date: {{ct_dh.ngayDo|date:"M d, Y"}} <br/>
-            Tong Tien: {{ct_dh.Total}}  VND<br/>
-            
-            Chi Tiet Vat Lieu: <br/>
+           
+            <div class="table-responsive">
+                <table>
+                    <tbody>
+                        {% comment %} <tr>
+                            <td class="ttname">
+                               Lai xe:
+                            </td>
+                            <td class="ttname">
+                               {{ct_car.xeBon.nhanVien.HoTen}}
+                            </td>
+                            
+                        </tr> {% endcomment %}
+                        <tr>
+                            <td class="ttname">
+                               Xe:
+                            </td>
+                            <td class="ttname">
+                               {{ct_car.xeBon.TenXe}}
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="ttname">
+                              Khach hang:
+                            </td>
+                            <td class="ttname">
+                               {{ct_dh.khachHang.HoTen}}
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="ttname">
+                               Mac:
+                            </td>
+                            <td class="ttname">
+                               {{ct_dh.mac.TenMac}}
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="ttname">
+                               So khoi:
+                            </td>
+                            <td class="ttname">
+                               {{ct_dh.soKhoi}}
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="ttname">
+                               Chi Tiet Vat Lieu:
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered verticle-middle table-responsive-sm">
+                            <table border="1" style="border-collapse: collapse; "class=" table table-bordered verticle-middle table-responsive-sm">
                                 <thead>
                                     <tr>
                                         <th scope="col">Ten Vat Lieu</th>
@@ -108,12 +164,57 @@
                             </table>
                         </div>
                     </div>
+                <p style="text-align:right;">Tong Tien: {{ct_dh.Total}}  VND<br/></p>
+                
             {% comment %} <hr class='hrItem' /> {% endcomment %}
         </div>
-        <div class="">
+        <div class="footer">
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr style="">
+                            <th scope="col">Ben Giao</th>
+                            <th scope="col">TVGS</th>
+                            <th scope="col">Ben Nhan</th>
+                        </tr>
+                       
+                    </thead>
+                </table>
+                <br/>
+                <br/>
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Tram tron</th>
+                            <th scope="col">Ke Toan</th>
+                            <th scope="col">Lai Xe</th>
+                            <th scope="col">Khach Hang</th>
+                        </tr>
+                       
+                    </thead>
+                    <tbody>
+                    <tr></tr>
+                        <tr>
+                            <td>
+                                {{user}}
+                            </td>
+                            <td>
+                                {{bh}}
+                            </td>
+                            <td>
+                                {{ct_car.xeBon.nhanVien.HoTen}}
+                            </td>
+                            <td>
+                                {{ct_dh.khachHang.HoTen}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
+                       
     </body>
     
 </html>
